@@ -1,6 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 import './index.css'
 
+// --- Config Toggles ---
+const SHOW_BEE_PATH = false; // Set to true to render the bee trail path
+
 // --- Tiny helpers ---
 
 function BeeCard() {
@@ -223,16 +226,20 @@ export default function App() {
           Your subscription<br/>failed. <span className="opacity-30">Again.</span>
         </h2>
 
-        <div className="grid md:grid-cols-3 gap-4 text-left">
+        <div className="grid md:grid-cols-3 gap-6 text-left relative z-10">
           {[
-            { emoji: '😬', head: 'Surprise charge', body: 'You forgot the free trial ended. You wake up to a debit you weren\'t ready for.' },
-            { emoji: '💸', head: 'Low balance, failed bill', body: 'You keep your main account low for security. Netflix disagrees.' },
-            { emoji: '😰', head: 'Too many cards out there', body: 'Five streaming sites have your debit card. One breach and it\'s all gone.' },
-          ].map(({ emoji, head, body }) => (
-            <div key={head} className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/8 transition-colors">
-              <p className="text-3xl mb-3">{emoji}</p>
-              <p className="font-bold text-base mb-2">{head}</p>
-              <p className="text-sm text-white/60 leading-relaxed">{body}</p>
+            { img: '/assets/bee-confused-right.png', head: 'Surprise charge', body: 'You forgot the free trial ended. You wake up to a debit you weren\'t ready for.' },
+            { img: '/assets/bee-sad.png', head: 'Low balance, failed bill', body: 'You keep your main account low for security. Netflix disagrees.' },
+            { img: '/assets/pain_security_breach.png', head: 'Too many cards out there', body: 'Five streaming sites have your debit card. One breach and it\'s all gone.' },
+          ].map(({ img, head, body }) => (
+            <div key={head} className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/8 transition-colors flex flex-col justify-between">
+              <div>
+                <div className="h-20 mb-6 flex items-center">
+                  <img src={img} alt={head} className="h-full object-contain" />
+                </div>
+                <p className="font-bold text-lg mb-2">{head}</p>
+                <p className="text-sm text-white/60 leading-relaxed">{body}</p>
+              </div>
             </div>
           ))}
         </div>
@@ -243,7 +250,12 @@ export default function App() {
 
     // 2 — How it works
     <Slide key={2} id="slide-2" onVisible={setCurrent} index={2} className="bg-[#FFFFFC]">
-      <div className="max-w-4xl w-full">
+      {/* Honey drip decoration at the transition boundary */}
+      <div className="absolute top-0 left-0 right-0 w-full overflow-hidden pointer-events-none opacity-20">
+        <img src="/assets/honey_drip.png" alt="" className="w-full h-16 object-cover object-top" />
+      </div>
+
+      <div className="max-w-4xl w-full relative z-10">
         <p className="text-[#E9B84A] text-sm font-bold uppercase tracking-widest mb-4 text-center">How it works</p>
         <h2 className="text-3xl sm:text-4xl md:text-6xl font-black text-[#1E2A2E] leading-tight text-center mb-8 md:mb-16">
           Four steps.<br/>Then you're done.
@@ -285,9 +297,14 @@ export default function App() {
             Just-in-time card funding
           </div>
         </div>
-        {/* Card mockup */}
-        <div className="flex justify-center">
-          <BeeCard />
+        {/* Card mockup & Security Guard Mascot */}
+        <div className="relative flex justify-center items-center h-[340px] w-full max-w-[340px] mx-auto scale-90 sm:scale-100">
+          <div className="absolute left-[-40px] bottom-0 z-0 opacity-90 scale-95">
+            <img src="/assets/security_vault.png" alt="Security Bee" className="h-48 object-contain" />
+          </div>
+          <div className="relative z-10 ml-16">
+            <BeeCard />
+          </div>
         </div>
       </div>
     </Slide>,
@@ -295,9 +312,17 @@ export default function App() {
     // 4 — Telegram alerts
     <Slide key={4} id="slide-4" onVisible={setCurrent} index={4} className="bg-[#FFFFFC]">
       <div className="max-w-5xl w-full grid md:grid-cols-2 gap-16 items-center">
-        {/* Telegram mock */}
-        <div className="order-2 md:order-1 flex justify-center">
-          <div className="bg-[#17212b] rounded-3xl p-5 w-full max-w-[300px] shadow-2xl shadow-[#17212b]/30">
+        {/* Telegram mock with Postman Bee */}
+        <div className="order-2 md:order-1 flex justify-center relative">
+          <div className="absolute top-[-50px] left-[-30px] z-20 pointer-events-none">
+            <img 
+              src="/assets/alerts_postman.png" 
+              alt="Postman Bee" 
+              className="h-28 object-contain drop-shadow-md animate-bounce" 
+              style={{ animationDuration: '3s' }}
+            />
+          </div>
+          <div className="bg-[#17212b] rounded-3xl p-5 w-full max-w-[300px] shadow-2xl shadow-[#17212b]/30 relative z-10">
             <div className="flex items-center gap-3 border-b border-white/10 pb-3 mb-4">
               <div className="w-8 h-8 rounded-full bg-[#2ca5e0] flex items-center justify-center">
                 <img src="/assets/subbee-logo.png" alt="" className="w-5 h-5 object-contain" />
@@ -333,7 +358,7 @@ export default function App() {
             charge. Pay early, skip a month, or pause — right from the chat.
             No app switch needed.
           </p>
-          <img src="/assets/bee-peek.png" alt="" className="h-20 opacity-80" />
+          <img src="/assets/bee-waiting.png" alt="" className="h-20 opacity-80" />
         </div>
       </div>
     </Slide>,
@@ -406,8 +431,50 @@ export default function App() {
       {/* Slide nav */}
       <SideNav current={current} total={TOTAL} onGoTo={goTo} />
 
+      {/* Trailing Dashes Bee Path (Multi-segment off-screen loops) */}
+      {SHOW_BEE_PATH && (
+        <div className="absolute inset-y-0 left-0 right-0 w-full pointer-events-none z-20 overflow-hidden">
+          <svg className="w-full h-full" preserveAspectRatio="none" viewBox="0 0 1000 6000">
+            {/* Segment 1: Hero to Pain section, loops off right, exits left */}
+            <path
+              d="M 650,250
+                 C 1200,600 1100,1050 600,1300
+                 C 200,1500 -200,1650 -150,1850"
+              fill="none"
+              stroke="#E9B84A"
+              strokeWidth="4"
+              strokeDasharray="10 10"
+              className="opacity-30 md:opacity-40"
+            />
+            {/* Segment 2: Enters right in How it Works, loops wide left, exits right in Security */}
+            <path
+              d="M 1150,2200
+                 C 700,2400 100,2500 250,2800
+                 C 450,3200 1200,3050 1200,3350"
+              fill="none"
+              stroke="#E9B84A"
+              strokeWidth="4"
+              strokeDasharray="10 10"
+              className="opacity-30 md:opacity-40"
+            />
+            {/* Segment 3: Enters left in Alerts, loops right, ends in CTA */}
+            <path
+              d="M -150,4100
+                 C 500,4300 1150,4600 700,4900
+                 C 350,5150 -150,5200 150,5550
+                 C 350,5750 700,5850 500,6000"
+              fill="none"
+              stroke="#E9B84A"
+              strokeWidth="4"
+              strokeDasharray="10 10"
+              className="opacity-30 md:opacity-40"
+            />
+          </svg>
+        </div>
+      )}
+
       {/* Slides */}
-      <main>
+      <main className="relative z-10">
         {slides}
       </main>
     </div>
