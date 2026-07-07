@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #FFFFFC;
+  color: #1E2A2E;
+  overflow-x: hidden;
+}
+
+section.snap {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  min-height: 100svh;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #E9B84A; border-radius: 4px; }
+
+.text-tabular { font-variant-numeric: tabular-nums; }
+
+/* Honeycomb hex pattern overlay */
+.honeycomb-bg {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100' viewBox='0 0 56 100'%3E%3Cpath d='M28 66L0 50V18L28 2l28 16v32L28 66zm0-6l22-13V19L28 6 6 19v28l22 13z' fill='%23FFFFFF' fill-opacity='0.06'/%3E%3C/svg%3E");
+}
+
+.gold-panel {
+  background: linear-gradient(135deg, #EDC77E 0%, #E9B84A 40%, #D8AC6B 70%, #AE895B 100%);
+}
+
+.card-gradient {
+  background: linear-gradient(135deg, #2E6264 0%, #183739 60%, #1B2F2F 100%);
+}
+
+/* Animated underline */
+.underline-gold {
+  position: relative;
+  display: inline-block;
+}
+.underline-gold::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: #E9B84A;
+  border-radius: 3px;
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: drawLine 0.8s ease 0.6s forwards;
+}
+@keyframes drawLine {
+  to { transform: scaleX(1); }
+}
+
+/* Card number dots */
+.card-dots span {
+  letter-spacing: 0.2em;
+  font-size: 1.2rem;
+}
+
+/* Nav dot indicator */
+.nav-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #1E2A2E20;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+.nav-dot.active {
+  background: #E9B84A;
+  height: 24px;
+  border-radius: 3px;
+}
+
+/* Slide-in from bottom keyframe */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.slide-up { animation: slideUp 0.7s ease forwards; }
+.delay-1 { animation-delay: 0.15s; opacity: 0; }
+.delay-2 { animation-delay: 0.3s; opacity: 0; }
+.delay-3 { animation-delay: 0.45s; opacity: 0; }
+.delay-4 { animation-delay: 0.6s; opacity: 0; }
+
+/* Step number */
+.step-num {
+  font-size: 7rem;
+  font-weight: 900;
+  line-height: 1;
+  color: #E9B84A15;
+  position: absolute;
+  top: -1rem;
+  left: -0.5rem;
+  user-select: none;
+}
