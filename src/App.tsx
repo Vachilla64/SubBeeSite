@@ -58,7 +58,7 @@ function SideNav({ current, total, onGoTo }: { current: number; total: number; o
   const isVisible = current > 0 && current < total - 1;
 
   return (
-    <div className={`fixed right-6 md:right-8 top-1/2 -translate-y-1/2 z-50 flex flex-col items-center h-[320px] justify-between py-4 transition-all duration-500 ease-in-out ${
+    <div className={`fixed right-6 md:right-8 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col items-center h-[320px] justify-between py-4 transition-all duration-500 ease-in-out ${
       isVisible ? 'opacity-100 translate-x-0 pointer-events-auto' : 'opacity-0 translate-x-4 pointer-events-none'
     }`}>
       {/* The Dotted Track Line */}
@@ -163,7 +163,12 @@ export default function App() {
       {/* big blurred gold orb */}
       <div className="absolute top-[-200px] right-[-200px] w-[600px] h-[600px] rounded-full bg-[#E9B84A] opacity-10 blur-[120px] pointer-events-none" />
 
-      <div className="max-w-6xl w-full grid md:grid-cols-2 gap-16 items-center">
+      {/* Bottom meadow */}
+      <div className="absolute inset-0 w-full h-full opacity-20 pointer-events-none z-0">
+        <img src="/assets/meadow.png" alt="" className="w-full h-full object-cover object-bottom" />
+      </div>
+
+      <div className="max-w-6xl w-full grid md:grid-cols-2 gap-16 items-center relative z-10">
         {/* Left copy */}
         <div>
           <div className="inline-flex items-center gap-2 bg-[#183739]/5 text-[#183739] px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-widest mb-8">
@@ -171,13 +176,13 @@ export default function App() {
             Nomba Hackathon 2026
           </div>
 
-          <h1 className="text-5xl md:text-[5.5rem] font-black leading-[1.0] tracking-tight text-[#1E2A2E] mb-6">
+          <h1 className="text-4xl sm:text-5xl md:text-[5.5rem] font-black leading-[1.1] md:leading-[1.0] tracking-tight text-[#1E2A2E] mb-6">
             Never miss a<br/>
             <span className="underline-gold">payment</span>
             <br/>again.
           </h1>
 
-          <p className="text-lg text-[#1E2A2E]/60 leading-relaxed max-w-md mb-10">
+          <p className="text-base sm:text-lg text-[#1E2A2E]/60 leading-relaxed max-w-md mb-10">
             One wallet, one virtual card. Fund SubBee once and we pay
             your Netflix, Spotify, and every bill — automatically, on time.
           </p>
@@ -199,11 +204,11 @@ export default function App() {
         </div>
 
         {/* Right: stacked cards */}
-        <div className="relative h-[380px] flex items-center justify-center">
-          <div className="absolute top-0 right-0 rotate-[-6deg] origin-bottom-left">
+        <div className="relative h-[360px] sm:h-[380px] w-full max-w-[320px] sm:max-w-none mx-auto scale-90 sm:scale-100 origin-center flex items-center justify-center">
+          <div className="absolute top-0 right-0 rotate-[-6deg] origin-bottom-left scale-90 sm:scale-100">
             <BalancePanel />
           </div>
-          <div className="absolute bottom-0 left-0 rotate-[4deg] origin-bottom-right md:left-12">
+          <div className="absolute bottom-0 left-0 rotate-[4deg] origin-bottom-right sm:left-12 scale-90 sm:scale-100">
             <BeeCard />
           </div>
         </div>
@@ -214,7 +219,7 @@ export default function App() {
     <Slide key={1} id="slide-1" onVisible={setCurrent} index={1} className="bg-[#183739] text-white">
       <div className="max-w-3xl w-full text-center">
         <p className="text-[#E9B84A] text-sm font-bold uppercase tracking-widest mb-6">Sound familiar?</p>
-        <h2 className="text-5xl md:text-7xl font-black leading-tight mb-12">
+        <h2 className="text-3xl sm:text-5xl md:text-7xl font-black leading-tight mb-8 md:mb-12">
           Your subscription<br/>failed. <span className="opacity-30">Again.</span>
         </h2>
 
@@ -240,7 +245,7 @@ export default function App() {
     <Slide key={2} id="slide-2" onVisible={setCurrent} index={2} className="bg-[#FFFFFC]">
       <div className="max-w-4xl w-full">
         <p className="text-[#E9B84A] text-sm font-bold uppercase tracking-widest mb-4 text-center">How it works</p>
-        <h2 className="text-4xl md:text-6xl font-black text-[#1E2A2E] leading-tight text-center mb-16">
+        <h2 className="text-3xl sm:text-4xl md:text-6xl font-black text-[#1E2A2E] leading-tight text-center mb-8 md:mb-16">
           Four steps.<br/>Then you're done.
         </h2>
 
@@ -266,7 +271,7 @@ export default function App() {
       <div className="max-w-5xl w-full grid md:grid-cols-2 gap-16 items-center">
         <div>
           <p className="text-[#E9B84A] text-sm font-bold uppercase tracking-widest mb-6">Security</p>
-          <h2 className="text-5xl md:text-6xl font-black leading-tight mb-6">
+          <h2 className="text-3xl sm:text-5xl md:text-6xl font-black leading-tight mb-6">
             Your card stays<br/>at <span className="text-[#E9B84A] text-tabular">₦ 0.00</span>.
           </h2>
           <p className="text-white/60 text-lg leading-relaxed max-w-sm mb-8">
@@ -320,7 +325,7 @@ export default function App() {
 
         <div className="order-1 md:order-2">
           <p className="text-[#E9B84A] text-sm font-bold uppercase tracking-widest mb-6">Alerts</p>
-          <h2 className="text-5xl md:text-6xl font-black text-[#1E2A2E] leading-tight mb-6">
+          <h2 className="text-3xl sm:text-5xl md:text-6xl font-black text-[#1E2A2E] leading-tight mb-6">
             3-day heads up.<br/>Every time.
           </h2>
           <p className="text-[#1E2A2E]/60 text-lg leading-relaxed max-w-sm mb-6">
@@ -342,7 +347,7 @@ export default function App() {
 
       <div className="max-w-2xl w-full text-center relative z-10">
         <img src="/assets/subbee-logo.png" alt="" className="h-28 mx-auto mb-6 drop-shadow-2xl" />
-        <h2 className="text-5xl md:text-7xl font-black leading-tight mb-4">
+        <h2 className="text-4xl sm:text-5xl md:text-7xl font-black leading-tight mb-4">
           Your bills.<br/>Handled.
         </h2>
         <p className="text-white/60 text-lg mb-10 max-w-md mx-auto leading-relaxed">
