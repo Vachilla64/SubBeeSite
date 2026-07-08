@@ -152,31 +152,7 @@ function Slide({
 // --- Main App ---
 export default function App() {
   const [current, setCurrent] = useState(0)
-  const [email, setEmail] = useState('');
-  const [formStatus, setFormStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
-  const [errorMessage, setErrorMessage] = useState('');
 
-  const handleJoin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email) return;
-    setFormStatus('loading');
-    setErrorMessage('');
-    try {
-      const res = await fetch('https://subbee3712.up.railway.app/api/waitlist', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email })
-      });
-      if (!res.ok) {
-        throw new Error('Failed to join waitlist');
-      }
-      setFormStatus('success');
-      setEmail('');
-    } catch (err: any) {
-      setFormStatus('error');
-      setErrorMessage(err.message || 'Something went wrong');
-    }
-  };
 
   const TOTAL = 6
 
@@ -216,12 +192,15 @@ export default function App() {
           </p>
 
           <div className="flex gap-4 flex-wrap">
-            <button
-              className="bg-[#183739] text-white px-8 py-3.5 rounded-full font-semibold text-sm hover:bg-[#2E6264] transition-colors"
-              onClick={() => goTo(5)}
+            <a
+              href="https://subbee.vercel.app"
+              className="bg-[#183739] text-white px-8 py-3.5 rounded-full font-semibold text-sm hover:bg-[#2E6264] transition-colors flex items-center gap-3"
             >
-              Get started free
-            </button>
+              <svg viewBox="0 0 512 512" className="w-5 h-5 fill-current">
+                <path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/>
+              </svg>
+              Get The App
+            </a>
             <button
               className="text-[#183739] px-8 py-3.5 rounded-full font-semibold text-sm border border-[#183739]/20 hover:border-[#183739]/40 transition-colors"
               onClick={() => goTo(2)}
@@ -404,26 +383,17 @@ export default function App() {
           Join the beta. Get your dedicated subscription wallet in under 2 minutes.
         </p>
 
-        <form onSubmit={handleJoin} className="flex flex-col sm:flex-row gap-4 justify-center">
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            disabled={formStatus === 'loading' || formStatus === 'success'}
-            placeholder="your@email.com"
-            required
-            className="bg-white/10 border border-white/20 text-white placeholder:text-white/40 px-6 py-3.5 rounded-full text-sm focus:outline-none focus:border-[#E9B84A]/50 focus:bg-white/15 transition-all sm:w-64 disabled:opacity-50"
-          />
-          <button 
-            type="submit"
-            disabled={formStatus === 'loading' || formStatus === 'success'}
-            className="bg-[#E9B84A] text-[#1E2A2E] px-8 py-3.5 rounded-full font-bold text-sm hover:bg-[#EDC062] transition-colors shadow-lg shadow-[#E9B84A]/30 disabled:opacity-50 flex items-center justify-center min-w-[180px]"
+        <div className="flex justify-center mt-6">
+          <a
+            href="https://subbee.vercel.app"
+            className="bg-[#E9B84A] text-[#1E2A2E] px-8 py-3.5 rounded-full font-bold text-sm hover:bg-[#EDC062] transition-colors shadow-lg shadow-[#E9B84A]/30 flex items-center justify-center gap-3 w-fit mx-auto"
           >
-            {formStatus === 'loading' ? 'Joining...' : formStatus === 'success' ? 'Joined!' : 'Create free account →'}
-          </button>
-        </form>
-        {formStatus === 'success' && <p className="text-[#E9B84A] text-sm mt-4 font-medium animate-pulse">Thanks! We'll be in touch soon.</p>}
-        {formStatus === 'error' && <p className="text-red-400 text-sm mt-4">{errorMessage}</p>}
+            <svg viewBox="0 0 512 512" className="w-5 h-5 fill-current">
+              <path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/>
+            </svg>
+            Get The App
+          </a>
+        </div>
 
         <p className="text-white/30 text-xs mt-6">No credit card. No paperwork. Just a phone number.</p>
       </div>
@@ -450,16 +420,19 @@ export default function App() {
             <button onClick={() => goTo(4)} className={`transition-colors ${current % 2 !== 0 ? 'hover:text-white' : 'hover:text-[#1E2A2E]'}`}>Alerts</button>
           </div>
 
-          <button
-            onClick={() => goTo(5)}
-            className={`px-5 py-2 rounded-full font-semibold text-sm transition-all duration-300 ${
+          <a
+            href="https://subbee.vercel.app"
+            className={`px-5 py-2 rounded-full font-semibold text-sm transition-all duration-300 flex items-center gap-2 ${
               current % 2 !== 0 
                 ? 'bg-white text-[#183739] hover:bg-[#E9B84A] hover:text-white' 
                 : 'bg-[#E9B84A] text-[#1E2A2E] hover:bg-[#EDC062]'
             }`}
           >
-            Get started
-          </button>
+            <svg viewBox="0 0 512 512" className="w-4 h-4 fill-current">
+              <path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/>
+            </svg>
+            Get The App
+          </a>
         </div>
       </header>
 
