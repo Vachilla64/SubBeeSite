@@ -152,6 +152,31 @@ function Slide({
 // --- Main App ---
 export default function App() {
   const [current, setCurrent] = useState(0)
+  const [email, setEmail] = useState('');
+  const [formStatus, setFormStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const handleJoin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) return;
+    setFormStatus('loading');
+    setErrorMessage('');
+    try {
+      const res = await fetch('https://subbee3712.up.railway.app/api/waitlist', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
+      });
+      if (!res.ok) {
+        throw new Error('Failed to join waitlist');
+      }
+      setFormStatus('success');
+      setEmail('');
+    } catch (err: any) {
+      setFormStatus('error');
+      setErrorMessage(err.message || 'Something went wrong');
+    }
+  };
 
   const TOTAL = 6
 
@@ -379,16 +404,26 @@ export default function App() {
           Join the beta. Get your dedicated subscription wallet in under 2 minutes.
         </p>
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        <form onSubmit={handleJoin} className="flex flex-col sm:flex-row gap-4 justify-center">
           <input
             type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            disabled={formStatus === 'loading' || formStatus === 'success'}
             placeholder="your@email.com"
-            className="bg-white/10 border border-white/20 text-white placeholder:text-white/40 px-6 py-3.5 rounded-full text-sm focus:outline-none focus:border-[#E9B84A]/50 focus:bg-white/15 transition-all sm:w-64"
+            required
+            className="bg-white/10 border border-white/20 text-white placeholder:text-white/40 px-6 py-3.5 rounded-full text-sm focus:outline-none focus:border-[#E9B84A]/50 focus:bg-white/15 transition-all sm:w-64 disabled:opacity-50"
           />
-          <button className="bg-[#E9B84A] text-[#1E2A2E] px-8 py-3.5 rounded-full font-bold text-sm hover:bg-[#EDC062] transition-colors shadow-lg shadow-[#E9B84A]/30">
-            Create free account →
+          <button 
+            type="submit"
+            disabled={formStatus === 'loading' || formStatus === 'success'}
+            className="bg-[#E9B84A] text-[#1E2A2E] px-8 py-3.5 rounded-full font-bold text-sm hover:bg-[#EDC062] transition-colors shadow-lg shadow-[#E9B84A]/30 disabled:opacity-50 flex items-center justify-center min-w-[180px]"
+          >
+            {formStatus === 'loading' ? 'Joining...' : formStatus === 'success' ? 'Joined!' : 'Create free account →'}
           </button>
-        </div>
+        </form>
+        {formStatus === 'success' && <p className="text-[#E9B84A] text-sm mt-4 font-medium animate-pulse">Thanks! We'll be in touch soon.</p>}
+        {formStatus === 'error' && <p className="text-red-400 text-sm mt-4">{errorMessage}</p>}
 
         <p className="text-white/30 text-xs mt-6">No credit card. No paperwork. Just a phone number.</p>
       </div>
