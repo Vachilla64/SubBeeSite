@@ -233,14 +233,14 @@ export default function App() {
 
         <div className="grid md:grid-cols-3 gap-4 lg:gap-6 text-left relative z-10">
           {[
-            { icon: <svg className="w-7 h-7 text-[#E9B84A]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>, head: 'I lost ₦5,000 to a free trial I forgot to cancel.', body: 'You clicked "start 7-day trial" and forgot. Now you\'re down ₦5,000 for an app you don\'t use.' },
-            { icon: <svg className="w-7 h-7 text-[#E9B84A]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" /><path strokeLinecap="round" strokeLinejoin="round" d="M3 3l18 18" /></svg>, head: 'Spotify cut me off because I kept my balance at zero.', body: 'You keep your debit card balance low so hackers can\'t steal it. Now Spotify keeps failing to charge.' },
-            { icon: <svg className="w-7 h-7 text-[#E9B84A]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /><path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01" /></svg>, head: 'I had to freeze my bank account because one site got hacked.', body: 'Three different websites have your debit card number. If one gets hacked, you have to freeze your whole bank account.' },
-          ].map(({ icon, head, body }) => (
+            { img: '/assets/pain_forgot_trial.png', head: 'I lost ₦5,000 to a free trial I forgot to cancel.', body: 'You clicked "start 7-day trial" and forgot. Now you\'re down ₦5,000 for an app you don\'t use.' },
+            { img: '/assets/pain_card_declined.png', head: 'Spotify cut me off because I kept my balance at zero.', body: 'You keep your debit card balance low so hackers can\'t steal it. Now Spotify keeps failing to charge.' },
+            { img: '/assets/pain_account_frozen.png', head: 'I had to freeze my bank account because one site got hacked.', body: 'Three different websites have your debit card number. If one gets hacked, you have to freeze your whole bank account.' },
+          ].map(({ img, head, body }) => (
             <div key={head} className="bg-white/5 border border-white/10 rounded-2xl p-5 hover:bg-white/8 transition-colors flex flex-col justify-between">
               <div>
-                <div className="h-14 mb-4 flex items-center">
-                  <div className="bg-white/10 p-3 rounded-xl shadow-inner border border-white/5">{icon}</div>
+                <div className="h-20 mb-4 flex items-center">
+                  <img src={img} alt={head} className="h-full object-contain" />
                 </div>
                 <p className="font-bold text-base leading-snug mb-2">{head}</p>
                 <p className="text-sm text-white/60 leading-relaxed">{body}</p>
@@ -269,7 +269,11 @@ export default function App() {
         <div className="grid md:grid-cols-2 gap-6">
           {[
             { n: '1', head: 'Fund your wallet', body: 'Wire your monthly subscription budget to your dedicated Nomba account.',
-              visual: <img src="/assets/nomba-transparent.png" alt="Nomba" className="h-8 object-contain mb-4" /> },
+              visual: <div className="flex items-center gap-2 mb-4">
+                        <img src="/assets/nomba-transparent.png" alt="Nomba" className="h-8 object-contain" />
+                        <span className="text-gray-300 text-sm">+</span>
+                        <img src="/assets/subbee-logo.png" alt="SubBee" className="h-7 w-7 object-contain rounded-full" />
+                      </div> },
             { n: '2', head: 'List your bills', body: 'Tell us you pay Netflix ₦4,900 and DSTV ₦13,000.',
               visual: <div className="flex gap-[-8px] mb-4">
                         <img src="/assets/netflix.png" alt="Netflix" className="h-10 w-10 rounded-full border-2 border-white shadow-sm -ml-0" />
@@ -277,9 +281,9 @@ export default function App() {
                         <img src="/assets/dstv.png" alt="DSTV" className="h-10 w-10 rounded-full border-2 border-white shadow-sm -ml-3" />
                       </div> },
             { n: '3', head: 'Take the card', body: 'We hand you a virtual Mastercard that stays empty by default.',
-              visual: <div className="mb-4 scale-[0.4] origin-top-left -mt-4 h-[80px]"><BeeCard /></div> },
+              visual: <div className="mb-3 scale-[0.55] origin-top-left -mt-2 h-[100px]"><BeeCard /></div> },
             { n: '4', head: 'Approve via Telegram', body: 'We ping you 3 days before a bill. Say yes, and we fund the card for that exact millisecond.',
-              visual: <img src="/assets/alerts_postman.png" alt="Telegram" className="h-12 object-contain object-left mb-4" /> },
+              visual: <img src="/assets/alerts_postman.png" alt="Telegram" className="h-16 object-contain object-left mb-3" /> },
           ].map(({ n, head, body, visual }) => (
             <div key={n} className="relative bg-white border border-gray-100 rounded-2xl p-5 shadow-sm overflow-hidden hover:shadow-md transition-shadow">
               <span className="step-num">{n}</span>
@@ -308,8 +312,14 @@ export default function App() {
           <img src="/assets/youtube.png" className="absolute top-[5%] right-[40%] w-12 h-12 rounded-full shadow-2xl animate-float object-contain" style={{ animationDelay: '2.5s' }} />
         </div>
 
+        {/* Section headline */}
+        <div className="relative z-20 mb-6">
+          <p className="text-[#E9B84A] text-sm font-bold uppercase tracking-widest mb-3">Flexibility</p>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black leading-tight">SubBee is flexible.</h2>
+        </div>
+
         {/* Toggle Switch */}
-        <div className="relative z-20 bg-[#0E2426] p-1.5 rounded-full flex items-center mb-12 shadow-inner border border-white/5">
+        <div className="relative z-20 bg-[#0E2426] p-1.5 rounded-full flex items-center mb-8 shadow-inner border border-white/5">
           <button
             onClick={() => setIsAutoPilot(false)}
             className={`relative px-6 py-3 rounded-full text-sm font-bold transition-all duration-300 ${
