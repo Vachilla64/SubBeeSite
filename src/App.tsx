@@ -233,9 +233,9 @@ export default function App() {
 
         <div className="grid md:grid-cols-3 gap-6 text-left relative z-10">
           {[
-            { img: '/assets/bee-confused-right.png', head: 'The Free Trial Trap', body: 'You clicked "start 7-day trial" and forgot. Now you\'re down ₦5,000 for an app you don\'t use.' },
-            { img: '/assets/bee-sad.png', head: 'The Empty Account Bounce', body: 'You keep your debit card balance low so hackers can\'t steal it. Now Spotify keeps failing to charge.' },
-            { img: '/assets/pain_security_breach.png', head: 'The Data Breach', body: 'Three different websites have your debit card number. If one gets hacked, you have to freeze your whole bank account.' },
+            { img: '/assets/bee-confused-right.png', head: 'I lost ₦5,000 to a free trial I forgot to cancel.', body: 'You clicked "start 7-day trial" and forgot. Now you\'re down ₦5,000 for an app you don\'t use.' },
+            { img: '/assets/bee-sad.png', head: 'Spotify cut me off because I kept my balance at zero.', body: 'You keep your debit card balance low so hackers can\'t steal it. Now Spotify keeps failing to charge.' },
+            { img: '/assets/pain_security_breach.png', head: 'I had to freeze my bank account because one site got hacked.', body: 'Three different websites have your debit card number. If one gets hacked, you have to freeze your whole bank account.' },
           ].map(({ img, head, body }) => (
             <div key={head} className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/8 transition-colors flex flex-col justify-between">
               <div>
