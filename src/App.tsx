@@ -325,23 +325,23 @@ export default function App() {
           {isAutoPilot ? (
             <div key="auto" className="slide-up">
               <h2 className="text-3xl sm:text-5xl md:text-6xl font-black leading-tight mb-8">
-                Let SubBee do the<br/>heavy lifting.
+                For the "Set it and<br/>forget it" crowd.
               </h2>
               <ul className="text-left inline-block space-y-4 text-white/80 text-lg">
-                <li className="flex items-center gap-3"><span className="text-[#E9B84A] text-xl">💰</span> Drop a lump sum into your wallet once.</li>
-                <li className="flex items-center gap-3"><span className="text-[#E9B84A] text-xl">🔍</span> We automatically detect your subscriptions.</li>
-                <li className="flex items-center gap-3"><span className="text-[#E9B84A] text-xl">⚡</span> We pay them exactly when they're due.</li>
+                <li className="flex items-center gap-3"><span className="text-[#E9B84A] text-xl">💰</span> Fund your wallet on payday. Go to sleep.</li>
+                <li className="flex items-center gap-3"><span className="text-[#E9B84A] text-xl">🔍</span> We detect every subscription.</li>
+                <li className="flex items-center gap-3"><span className="text-[#E9B84A] text-xl">⚡</span> We pay them exactly on time and send a receipt.</li>
               </ul>
             </div>
           ) : (
             <div key="manual" className="slide-up">
               <h2 className="text-3xl sm:text-5xl md:text-6xl font-black leading-tight mb-8">
-                Absolute precision.<br/>You call the shots.
+                For the control freaks.<br/>(We get it).
               </h2>
               <ul className="text-left inline-block space-y-4 text-white/80 text-lg">
-                <li className="flex items-center gap-3"><span className="text-white text-xl">🎯</span> Fund specific bills only.</li>
-                <li className="flex items-center gap-3"><span className="text-white text-xl">🛑</span> Never get charged for a service you forgot.</li>
-                <li className="flex items-center gap-3"><span className="text-white text-xl">📅</span> You tell us exactly what to pay and when.</li>
+                <li className="flex items-center gap-3"><span className="text-white text-xl">🎯</span> Don't trust automation? No problem.</li>
+                <li className="flex items-center gap-3"><span className="text-white text-xl">🛑</span> Fund exact amounts for specific bills only.</li>
+                <li className="flex items-center gap-3"><span className="text-white text-xl">📅</span> If Spotify is ₦1,200, put exactly ₦1,200 on the card.</li>
               </ul>
             </div>
           )}
@@ -441,10 +441,10 @@ export default function App() {
       <div className="max-w-2xl w-full text-center relative z-10">
         <img src="/assets/subbee-logo.png" alt="" className="h-28 mx-auto mb-6 drop-shadow-2xl" />
         <h2 className="text-4xl sm:text-5xl md:text-7xl font-black leading-tight mb-4">
-          Your bills.<br/>Handled.
+          Stop paying for<br/>apps you don't use.
         </h2>
         <p className="text-white/60 text-lg mb-10 max-w-md mx-auto leading-relaxed">
-          Join the beta. Get your dedicated subscription wallet in under 2 minutes.
+          Get your SubBee wallet in 120 seconds. It's completely free to fund, free to hold, and free to use.
         </p>
 
         <div className="flex justify-center mt-6">
@@ -462,7 +462,7 @@ export default function App() {
           </a>
         </div>
 
-        <p className="text-white/30 text-xs mt-6">No credit card. No paperwork. Just a phone number.</p>
+        <p className="text-white/30 text-xs mt-6">No paperwork. No BVN delays. Just your phone number.</p>
       </div>
     </Slide>,
   ]
