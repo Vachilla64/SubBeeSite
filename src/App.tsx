@@ -66,19 +66,19 @@ function SideNav({ current, total, onGoTo }: { current: number; total: number; o
     }`}>
       {/* The Dotted Track Line */}
       <div className="absolute top-4 bottom-4 w-0 border-r-2 border-dashed border-[#1E2A2E]/20 pointer-events-none z-0" />
-      
+
       {/* Sliding Bee Thumb */}
-      <div 
+      <div
         className="absolute w-8 h-8 z-20 pointer-events-none transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] flex items-center justify-center"
-        style={{ 
+        style={{
           top: `calc(${percentage}% - 0rem + 16px)`, // Offset alignment
           transform: 'translateY(-50%)',
         }}
       >
-        <img 
-          src="/assets/subbee-logo.png" 
-          alt="Bee indicator" 
-          className="w-7 h-7 drop-shadow-md animate-bounce" 
+        <img
+          src="/assets/subbee-logo.png"
+          alt="Bee indicator"
+          className="w-7 h-7 drop-shadow-md animate-bounce"
           style={{ animationDuration: '2s' }}
         />
       </div>
@@ -95,11 +95,11 @@ function SideNav({ current, total, onGoTo }: { current: number; total: number; o
           >
             {/* The Dot representation */}
             <div className={`w-3 h-3 rounded-full border-2 transition-all duration-300 ${
-              isActive 
-                ? 'bg-[#E9B84A] border-[#E9B84A] scale-110 shadow-sm' 
+              isActive
+                ? 'bg-[#E9B84A] border-[#E9B84A] scale-110 shadow-sm'
                 : 'bg-white border-[#1E2A2E]/30 group-hover:border-[#E9B84A] group-hover:scale-105'
             }`} />
-            
+
             {/* Hover Tooltip Label */}
             <div className="absolute right-10 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:translate-x-0 translate-x-2 transition-all duration-300 bg-[#1E2A2E] text-white text-[11px] font-bold px-2 py-1 rounded shadow-md whitespace-nowrap">
               {labels[i]}
@@ -173,19 +173,19 @@ export default function App() {
         <img src="/assets/meadow.png" alt="" className="w-full h-full object-cover object-bottom" />
       </div>
 
-      <div className="max-w-6xl w-full grid md:grid-cols-2 gap-16 items-center relative z-10">
+      <div className="max-w-6xl w-full grid md:grid-cols-2 gap-8 lg:gap-16 items-center relative z-10">
         {/* Left copy */}
         <div>
-          <div className="inline-flex items-center gap-2 bg-[#183739]/5 text-[#183739] px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-widest mb-8">
+          <div className="inline-flex items-center gap-2 bg-[#183739]/5 text-[#183739] px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-widest mb-6">
             <span className="w-1.5 h-1.5 rounded-full bg-[#4A6E52]" />
             Nomba Hackathon 2026
           </div>
 
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[4.5rem] font-black leading-[1.1] md:leading-[1.05] tracking-tight text-[#1E2A2E] mb-6">
+          <h1 className="text-4xl sm:text-5xl md:text-5xl lg:text-6xl font-black leading-[1.1] md:leading-[1.05] tracking-tight text-[#1E2A2E] mb-6">
             Netflix shouldn't have access to your <span className="underline-gold">rent money</span>.
           </h1>
 
-          <p className="text-base sm:text-lg text-[#1E2A2E]/60 leading-relaxed max-w-md mb-10">
+          <p className="text-base sm:text-lg text-[#1E2A2E]/60 leading-relaxed max-w-md mb-8">
             Stop linking your main bank account to the internet. Fund your SubBee wallet once a month, and we'll pay your subscriptions using a virtual card that can't be overdrawn.
           </p>
 
@@ -212,7 +212,7 @@ export default function App() {
         </div>
 
         {/* Right: stacked cards */}
-        <div className="relative h-[360px] sm:h-[380px] w-full max-w-[320px] sm:max-w-none mx-auto scale-90 sm:scale-100 origin-center flex items-center justify-center">
+        <div className="relative h-[320px] sm:h-[340px] w-full max-w-[320px] sm:max-w-none mx-auto scale-75 sm:scale-90 lg:scale-100 origin-center flex items-center justify-center">
           <div className="absolute top-0 right-0 rotate-[-6deg] origin-bottom-left scale-90 sm:scale-100">
             <BalancePanel />
           </div>
@@ -227,20 +227,20 @@ export default function App() {
     <Slide key={1} id="slide-1" onVisible={setCurrent} index={1} className="bg-[#183739] text-white">
       <div className="max-w-3xl w-full text-center">
         <p className="text-[#E9B84A] text-sm font-bold uppercase tracking-widest mb-6">Sound familiar?</p>
-        <h2 className="text-3xl sm:text-5xl md:text-7xl font-black leading-tight mb-8 md:mb-12">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black leading-tight mb-8 md:mb-10">
           The 3 AM<br/>Subscription <span className="opacity-30">Panic.</span>
         </h2>
 
-        <div className="grid md:grid-cols-3 gap-6 text-left relative z-10">
+        <div className="grid md:grid-cols-3 gap-4 lg:gap-6 text-left relative z-10">
           {[
-            { img: '/assets/bee-confused-right.png', head: 'I lost ₦5,000 to a free trial I forgot to cancel.', body: 'You clicked "start 7-day trial" and forgot. Now you\'re down ₦5,000 for an app you don\'t use.' },
-            { img: '/assets/bee-sad.png', head: 'Spotify cut me off because I kept my balance at zero.', body: 'You keep your debit card balance low so hackers can\'t steal it. Now Spotify keeps failing to charge.' },
-            { img: '/assets/pain_security_breach.png', head: 'I had to freeze my bank account because one site got hacked.', body: 'Three different websites have your debit card number. If one gets hacked, you have to freeze your whole bank account.' },
-          ].map(({ img, head, body }) => (
-            <div key={head} className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/8 transition-colors flex flex-col justify-between">
+            { icon: <svg className="w-7 h-7 text-[#E9B84A]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>, head: 'I lost ₦5,000 to a free trial I forgot to cancel.', body: 'You clicked "start 7-day trial" and forgot. Now you\'re down ₦5,000 for an app you don\'t use.' },
+            { icon: <svg className="w-7 h-7 text-[#E9B84A]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" /><path strokeLinecap="round" strokeLinejoin="round" d="M3 3l18 18" /></svg>, head: 'Spotify cut me off because I kept my balance at zero.', body: 'You keep your debit card balance low so hackers can\'t steal it. Now Spotify keeps failing to charge.' },
+            { icon: <svg className="w-7 h-7 text-[#E9B84A]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /><path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01" /></svg>, head: 'I had to freeze my bank account because one site got hacked.', body: 'Three different websites have your debit card number. If one gets hacked, you have to freeze your whole bank account.' },
+          ].map(({ icon, head, body }) => (
+            <div key={head} className="bg-white/5 border border-white/10 rounded-2xl p-5 hover:bg-white/8 transition-colors flex flex-col justify-between">
               <div>
-                <div className="h-20 mb-6 flex items-center">
-                  <img src={img} alt={head} className="h-full object-contain" />
+                <div className="h-14 mb-4 flex items-center">
+                  <div className="bg-white/10 p-3 rounded-xl shadow-inner border border-white/5">{icon}</div>
                 </div>
                 <p className="font-bold text-base leading-snug mb-2">{head}</p>
                 <p className="text-sm text-white/60 leading-relaxed">{body}</p>
@@ -249,7 +249,7 @@ export default function App() {
           ))}
         </div>
 
-        <p className="mt-10 text-white/40 text-sm">Scroll to see the fix ↓</p>
+        <p className="mt-8 text-white/40 text-sm">Scroll to see the fix ↓</p>
       </div>
     </Slide>,
 
@@ -262,13 +262,13 @@ export default function App() {
 
       <div className="max-w-4xl w-full relative z-10">
         <p className="text-[#E9B84A] text-sm font-bold uppercase tracking-widest mb-4 text-center">How it works</p>
-        <h2 className="text-3xl sm:text-4xl md:text-6xl font-black text-[#1E2A2E] leading-tight text-center mb-8 md:mb-16">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-[#1E2A2E] leading-tight text-center mb-8 md:mb-10">
           Setup takes 2 minutes.<br/>We do the rest.
         </h2>
 
         <div className="grid md:grid-cols-2 gap-6">
           {[
-            { n: '1', head: 'Send us money', body: 'Wire your monthly subscription budget to your dedicated Nomba account.',
+            { n: '1', head: 'Fund your wallet', body: 'Wire your monthly subscription budget to your dedicated Nomba account.',
               visual: <img src="/assets/nomba-transparent.png" alt="Nomba" className="h-8 object-contain mb-4" /> },
             { n: '2', head: 'List your bills', body: 'Tell us you pay Netflix ₦4,900 and DSTV ₦13,000.',
               visual: <div className="flex gap-[-8px] mb-4">
@@ -277,15 +277,15 @@ export default function App() {
                         <img src="/assets/dstv.png" alt="DSTV" className="h-10 w-10 rounded-full border-2 border-white shadow-sm -ml-3" />
                       </div> },
             { n: '3', head: 'Take the card', body: 'We hand you a virtual Mastercard that stays empty by default.',
-              visual: <div className="mb-4 scale-50 origin-top-left -mt-2 h-[120px]"><BeeCard /></div> },
+              visual: <div className="mb-4 scale-[0.4] origin-top-left -mt-4 h-[80px]"><BeeCard /></div> },
             { n: '4', head: 'Approve via Telegram', body: 'We ping you 3 days before a bill. Say yes, and we fund the card for that exact millisecond.',
-              visual: <img src="/assets/alerts_postman.png" alt="Telegram" className="h-16 object-contain mb-4" /> },
+              visual: <img src="/assets/alerts_postman.png" alt="Telegram" className="h-12 object-contain object-left mb-4" /> },
           ].map(({ n, head, body, visual }) => (
-            <div key={n} className="relative bg-white border border-gray-100 rounded-2xl p-7 shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+            <div key={n} className="relative bg-white border border-gray-100 rounded-2xl p-5 shadow-sm overflow-hidden hover:shadow-md transition-shadow">
               <span className="step-num">{n}</span>
               <div className="relative z-10">
                 {visual}
-                <p className="font-black text-2xl text-[#1E2A2E] mb-2">{head}</p>
+                <p className="font-black text-xl text-[#1E2A2E] mb-2">{head}</p>
                 <p className="text-[#1E2A2E]/60 text-sm leading-relaxed">{body}</p>
               </div>
             </div>
@@ -319,7 +319,7 @@ export default function App() {
             {!isAutoPilot && <div className="absolute inset-0 bg-white rounded-full z-0 transition-all duration-300"></div>}
             <span className="relative z-10">Manual Control</span>
           </button>
-          
+
           <button
             onClick={() => setIsAutoPilot(true)}
             className={`relative px-6 py-3 rounded-full text-sm font-bold transition-all duration-300 ${
@@ -362,13 +362,13 @@ export default function App() {
 
     // 4 — Security feature
     <Slide key={4} id="slide-4" onVisible={setCurrent} index={4} className="bg-[#1E2A2E] text-white">
-      <div className="max-w-5xl w-full grid md:grid-cols-2 gap-16 items-center">
+      <div className="max-w-5xl w-full grid md:grid-cols-2 gap-8 lg:gap-16 items-center">
         <div>
           <p className="text-[#E9B84A] text-sm font-bold uppercase tracking-widest mb-6">Security</p>
-          <h2 className="text-3xl sm:text-5xl md:text-6xl font-black leading-tight mb-6">
+          <h2 className="text-3xl sm:text-5xl md:text-5xl lg:text-6xl font-black leading-tight mb-6">
             Hackers can't<br/>steal <span className="text-[#E9B84A] text-tabular">₦ 0.00</span>.
           </h2>
-          <p className="text-white/60 text-lg leading-relaxed max-w-sm mb-8">
+          <p className="text-white/60 text-lg leading-relaxed max-w-sm mb-6">
             We keep your virtual card empty. We only move cash to it milliseconds before a verified charge hits. If a scammer gets your card details, they get a piece of plastic with zero purchasing power.
           </p>
           <div className="inline-flex items-center gap-2 bg-[#E9B84A]/10 text-[#E9B84A] px-4 py-2 rounded-full text-sm font-semibold">
@@ -379,7 +379,7 @@ export default function App() {
           </div>
         </div>
         {/* Card mockup & Security Guard Mascot */}
-        <div className="relative flex justify-center items-center h-[340px] w-full max-w-[340px] mx-auto scale-90 sm:scale-100">
+        <div className="relative flex justify-center items-center h-[300px] w-full max-w-[300px] mx-auto scale-75 sm:scale-90 lg:scale-100">
           <div className="absolute left-[-40px] bottom-0 z-20 opacity-90 scale-95">
             <img src="/assets/security_vault.png" alt="Security Bee" className="h-48 object-contain" />
           </div>
@@ -392,14 +392,14 @@ export default function App() {
 
     // 5 — Telegram alerts
     <Slide key={5} id="slide-5" onVisible={setCurrent} index={5} className="bg-[#FFFFFC]">
-      <div className="max-w-5xl w-full grid md:grid-cols-2 gap-16 items-center">
+      <div className="max-w-5xl w-full grid md:grid-cols-2 gap-8 lg:gap-16 items-center">
         {/* Telegram mock with Postman Bee */}
         <div className="order-2 md:order-1 flex justify-center relative">
           <div className="absolute top-[-50px] left-[-30px] z-20 pointer-events-none">
-            <img 
-              src="/assets/alerts_postman.png" 
-              alt="Postman Bee" 
-              className="h-28 object-contain drop-shadow-md animate-bounce" 
+            <img
+              src="/assets/alerts_postman.png"
+              alt="Postman Bee"
+              className="h-28 object-contain drop-shadow-md animate-bounce"
               style={{ animationDuration: '3s' }}
             />
           </div>
@@ -431,7 +431,7 @@ export default function App() {
 
         <div className="order-1 md:order-2">
           <p className="text-[#E9B84A] text-sm font-bold uppercase tracking-widest mb-6">Alerts</p>
-          <h2 className="text-3xl sm:text-5xl md:text-6xl font-black text-[#1E2A2E] leading-tight mb-6">
+          <h2 className="text-3xl sm:text-5xl md:text-5xl lg:text-6xl font-black text-[#1E2A2E] leading-tight mb-6">
             We interrogate<br/>every charge.
           </h2>
           <p className="text-[#1E2A2E]/60 text-lg leading-relaxed max-w-sm mb-6">
@@ -450,11 +450,11 @@ export default function App() {
       </div>
 
       <div className="max-w-4xl w-full text-center relative z-10">
-        <img src="/assets/subbee-logo.png" alt="" className="h-28 mx-auto mb-6 drop-shadow-2xl" />
-        <h2 className="text-4xl sm:text-5xl md:text-6xl font-black leading-tight mb-4">
+        <img src="/assets/subbee-logo.png" alt="" className="h-20 md:h-24 mx-auto mb-6 drop-shadow-2xl" />
+        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black leading-tight mb-4">
           Stop paying for<br/>apps you don't use.
         </h2>
-        <p className="text-white/60 text-lg mb-10 max-w-md mx-auto leading-relaxed">
+        <p className="text-white/60 text-base md:text-lg mb-8 max-w-md mx-auto leading-relaxed">
           Get your SubBee wallet in 120 seconds. It's completely free to fund, free to hold, and free to use.
         </p>
 
@@ -501,8 +501,8 @@ export default function App() {
           <a
             href="https://subbee.vercel.app"
             className={`px-5 py-2 rounded-full font-bold text-sm transition-all duration-300 flex items-center gap-2 ${
-              [1, 3, 4, 6].includes(current) 
-                ? 'bg-white text-[#183739] hover:bg-gray-100' 
+              [1, 3, 4, 6].includes(current)
+                ? 'bg-white text-[#183739] hover:bg-gray-100'
                 : 'bg-white text-[#183739] hover:bg-gray-100 shadow-sm border border-gray-200'
             }`}
           >
