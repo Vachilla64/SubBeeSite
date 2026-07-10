@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import "./index.css";
-import { span } from "framer-motion/client";
 
 // --- Config Toggles ---
 const SHOW_BEE_PATH = false; // Set to true to render the bee trail path
@@ -478,39 +477,28 @@ export default function App() {
       className="bg-[#183739] text-white"
     >
       <div className="max-w-4xl w-full relative z-10 flex flex-col items-center text-center">
-        {/* Floating Bubbles */}
+        {/* Floating Bubbles — 17 total, spread wide */}
         <div className="absolute inset-[-100px] pointer-events-none overflow-hidden hidden sm:block opacity-40 blur-[1px]">
-          <img
-            src="/assets/netflix.png"
-            className="absolute top-[10%] left-[10%] w-16 h-16 rounded-full shadow-2xl animate-float delay-1 object-contain"
-          />
-          <img
-            src="/assets/spotify.png"
-            className="absolute top-[30%] left-[85%] w-12 h-12 rounded-full shadow-2xl animate-float delay-2 object-contain"
-          />
-          <img
-            src="/assets/amazon.png"
-            className="absolute bottom-[15%] left-[20%] w-20 h-20 rounded-full shadow-2xl animate-float delay-3 object-contain"
-          />
-          <img
-            src="/assets/openai.png"
-            className="absolute top-[20%] right-[15%] w-16 h-16 rounded-full shadow-2xl animate-float delay-4 object-contain"
-          />
-          <img
-            src="/assets/dstv.png"
-            className="absolute bottom-[25%] right-[20%] w-14 h-14 rounded-full shadow-2xl animate-float object-contain"
-            style={{ animationDelay: "1.2s" }}
-          />
-          <img
-            src="/assets/apple.png"
-            className="absolute bottom-[10%] right-[40%] w-16 h-16 rounded-full shadow-2xl animate-float object-contain"
-            style={{ animationDelay: "0.8s" }}
-          />
-          <img
-            src="/assets/youtube.png"
-            className="absolute top-[5%] right-[40%] w-12 h-12 rounded-full shadow-2xl animate-float object-contain"
-            style={{ animationDelay: "2.5s" }}
-          />
+          {/* Original 7 */}
+          <img src="/assets/netflix.png" className="absolute top-[10%] left-[10%] w-16 h-16 rounded-full shadow-2xl animate-float delay-1 object-contain" />
+          <img src="/assets/spotify.png" className="absolute top-[30%] left-[85%] w-12 h-12 rounded-full shadow-2xl animate-float delay-2 object-contain" />
+          <img src="/assets/amazon.png" className="absolute bottom-[15%] left-[20%] w-20 h-20 rounded-full shadow-2xl animate-float delay-3 object-contain" />
+          <img src="/assets/openai.png" className="absolute top-[20%] right-[15%] w-16 h-16 rounded-full shadow-2xl animate-float delay-4 object-contain" />
+          <img src="/assets/dstv.png" className="absolute bottom-[25%] right-[20%] w-14 h-14 rounded-full shadow-2xl animate-float object-contain" style={{ animationDelay: '1.2s' }} />
+          <img src="/assets/apple.png" className="absolute bottom-[10%] right-[40%] w-16 h-16 rounded-full shadow-2xl animate-float object-contain" style={{ animationDelay: '0.8s' }} />
+          <img src="/assets/youtube.png" className="absolute top-[5%] right-[40%] w-12 h-12 rounded-full shadow-2xl animate-float object-contain" style={{ animationDelay: '2.5s' }} />
+          {/* 5 Foreign */}
+          <img src="/assets/hulu.png" className="absolute top-[50%] left-[5%] w-14 h-14 rounded-full shadow-2xl animate-float object-contain" style={{ animationDelay: '1.8s' }} />
+          <img src="/assets/disneyplus.png" className="absolute top-[70%] left-[55%] w-14 h-14 rounded-full shadow-2xl animate-float object-contain" style={{ animationDelay: '3.1s' }} />
+          <img src="/assets/canva.png" className="absolute top-[15%] left-[55%] w-12 h-12 rounded-full shadow-2xl animate-float object-contain" style={{ animationDelay: '0.4s' }} />
+          <img src="/assets/adobe.png" className="absolute bottom-[40%] left-[72%] w-12 h-12 rounded-full shadow-2xl animate-float object-contain" style={{ animationDelay: '2.2s' }} />
+          <img src="/assets/linkedin.png" className="absolute top-[80%] left-[8%] w-12 h-12 rounded-full shadow-2xl animate-float object-contain" style={{ animationDelay: '1.5s' }} />
+          {/* 5 Nigerian */}
+          <img src="/assets/showmax.png" className="absolute top-[60%] right-[8%] w-14 h-14 rounded-full shadow-2xl animate-float object-contain" style={{ animationDelay: '3.5s' }} />
+          <img src="/assets/mtn.png" className="absolute top-[40%] left-[35%] w-12 h-12 rounded-full shadow-2xl animate-float object-contain" style={{ animationDelay: '0.9s' }} />
+          <img src="/assets/airtel.png" className="absolute bottom-[5%] right-[55%] w-12 h-12 rounded-full shadow-2xl animate-float object-contain" style={{ animationDelay: '2.8s' }} />
+          <img src="/assets/boomplay.png" className="absolute top-[85%] right-[25%] w-14 h-14 rounded-full shadow-2xl animate-float object-contain" style={{ animationDelay: '1.1s' }} />
+          <img src="/assets/piggyvest.png" className="absolute top-[3%] left-[30%] w-12 h-12 rounded-full shadow-2xl animate-float object-contain" style={{ animationDelay: '4.0s' }} />
         </div>
 
         {/* Section headline */}
@@ -677,18 +665,20 @@ export default function App() {
               style={{ animationDuration: "3s" }}
             />
           </div>
+          {/* WhatsApp + Telegram header */}
           <div className="bg-[#17212b] rounded-3xl p-5 w-full max-w-[300px] shadow-2xl shadow-[#17212b]/30 relative z-10">
             <div className="flex items-center gap-3 border-b border-white/10 pb-3 mb-4">
-              <div className="w-8 h-8 rounded-full bg-[#2ca5e0] flex items-center justify-center">
-                <img
-                  src="/assets/subbee-logo.png"
-                  alt=""
-                  className="w-5 h-5 object-contain"
-                />
+              <div className="flex items-center gap-1">
+                <div className="w-8 h-8 rounded-full bg-[#2ca5e0] flex items-center justify-center">
+                  <img src="/assets/subbee-logo.png" alt="" className="w-5 h-5 object-contain" />
+                </div>
+                <div className="w-6 h-6 rounded-full overflow-hidden border border-white/10">
+                  <img src="/assets/whatsapp.png" alt="WhatsApp" className="w-full h-full object-cover" />
+                </div>
               </div>
               <div>
                 <p className="text-white font-semibold text-sm">SubBee</p>
-                <p className="text-white/40 text-xs">bot</p>
+                <p className="text-white/40 text-xs">Telegram · WhatsApp</p>
               </div>
             </div>
             <div className="bg-[#2b5278] rounded-2xl rounded-tl-none px-4 py-3 mb-3">
@@ -729,7 +719,7 @@ export default function App() {
           </h2>
           <p className="text-[#1E2A2E]/60 text-lg leading-relaxed max-w-sm mb-6">
             We don't just pay bills blindly. 3 days before Netflix charges you,
-            SubBee sends you a Telegram message. Want to skip this month? Tap
+            SubBee sends you a message on <strong className="text-[#1E2A2E]/80">Telegram</strong> or <strong className="text-[#1E2A2E]/80">WhatsApp</strong>. Want to skip this month? Tap
             "Skip" in the chat. The charge bounces, and you keep your cash.
           </p>
         </div>
