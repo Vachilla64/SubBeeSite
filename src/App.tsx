@@ -242,7 +242,7 @@ export default function App() {
                 <div className="h-20 mb-6 flex items-center">
                   <img src={img} alt={head} className="h-full object-contain" />
                 </div>
-                <p className="font-bold text-lg mb-2">{head}</p>
+                <p className="font-bold text-base leading-snug mb-2">{head}</p>
                 <p className="text-sm text-white/60 leading-relaxed">{body}</p>
               </div>
             </div>
@@ -268,15 +268,26 @@ export default function App() {
 
         <div className="grid md:grid-cols-2 gap-6">
           {[
-            { n: '1', head: 'Send us money', body: 'Wire your monthly subscription budget to your dedicated Nomba account.' },
-            { n: '2', head: 'List your bills', body: 'Tell us you pay Netflix ₦4,900 and DSTV ₦13,000.' },
-            { n: '3', head: 'Take the card', body: 'We hand you a virtual Mastercard that stays empty by default.' },
-            { n: '4', head: 'Approve via Telegram', body: 'We ping you 3 days before a bill. Say yes, and we fund the card for that exact millisecond.' },
-          ].map(({ n, head, body }) => (
+            { n: '1', head: 'Send us money', body: 'Wire your monthly subscription budget to your dedicated Nomba account.',
+              visual: <img src="/assets/nomba-transparent.png" alt="Nomba" className="h-8 object-contain mb-4" /> },
+            { n: '2', head: 'List your bills', body: 'Tell us you pay Netflix ₦4,900 and DSTV ₦13,000.',
+              visual: <div className="flex gap-[-8px] mb-4">
+                        <img src="/assets/netflix.png" alt="Netflix" className="h-10 w-10 rounded-full border-2 border-white shadow-sm -ml-0" />
+                        <img src="/assets/spotify.png" alt="Spotify" className="h-10 w-10 rounded-full border-2 border-white shadow-sm -ml-3" />
+                        <img src="/assets/dstv.png" alt="DSTV" className="h-10 w-10 rounded-full border-2 border-white shadow-sm -ml-3" />
+                      </div> },
+            { n: '3', head: 'Take the card', body: 'We hand you a virtual Mastercard that stays empty by default.',
+              visual: <div className="mb-4 scale-50 origin-top-left -mt-2 h-[120px]"><BeeCard /></div> },
+            { n: '4', head: 'Approve via Telegram', body: 'We ping you 3 days before a bill. Say yes, and we fund the card for that exact millisecond.',
+              visual: <img src="/assets/alerts_postman.png" alt="Telegram" className="h-16 object-contain mb-4" /> },
+          ].map(({ n, head, body, visual }) => (
             <div key={n} className="relative bg-white border border-gray-100 rounded-2xl p-7 shadow-sm overflow-hidden hover:shadow-md transition-shadow">
               <span className="step-num">{n}</span>
-              <p className="font-black text-2xl text-[#1E2A2E] mb-2 relative z-10">{head}</p>
-              <p className="text-[#1E2A2E]/60 text-sm leading-relaxed relative z-10">{body}</p>
+              <div className="relative z-10">
+                {visual}
+                <p className="font-black text-2xl text-[#1E2A2E] mb-2">{head}</p>
+                <p className="text-[#1E2A2E]/60 text-sm leading-relaxed">{body}</p>
+              </div>
             </div>
           ))}
         </div>
@@ -324,7 +335,7 @@ export default function App() {
         <div className="relative z-20 min-h-[220px] transition-opacity duration-300 flex flex-col items-center">
           {isAutoPilot ? (
             <div key="auto" className="slide-up">
-              <h2 className="text-3xl sm:text-5xl md:text-6xl font-black leading-tight mb-8">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black leading-tight mb-8">
                 For the "Set it and<br/>forget it" crowd.
               </h2>
               <ul className="text-left inline-block space-y-4 text-white/80 text-lg">
@@ -335,7 +346,7 @@ export default function App() {
             </div>
           ) : (
             <div key="manual" className="slide-up">
-              <h2 className="text-3xl sm:text-5xl md:text-6xl font-black leading-tight mb-8">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black leading-tight mb-8">
                 For the control freaks.<br/>(We get it).
               </h2>
               <ul className="text-left inline-block space-y-4 text-white/80 text-lg">
@@ -369,7 +380,7 @@ export default function App() {
         </div>
         {/* Card mockup & Security Guard Mascot */}
         <div className="relative flex justify-center items-center h-[340px] w-full max-w-[340px] mx-auto scale-90 sm:scale-100">
-          <div className="absolute left-[-40px] bottom-0 z-0 opacity-90 scale-95">
+          <div className="absolute left-[-40px] bottom-0 z-20 opacity-90 scale-95">
             <img src="/assets/security_vault.png" alt="Security Bee" className="h-48 object-contain" />
           </div>
           <div className="relative z-10 ml-16">
@@ -438,9 +449,9 @@ export default function App() {
         <img src="/assets/meadow.png" alt="" className="w-full h-full object-cover object-bottom" />
       </div>
 
-      <div className="max-w-2xl w-full text-center relative z-10">
+      <div className="max-w-4xl w-full text-center relative z-10">
         <img src="/assets/subbee-logo.png" alt="" className="h-28 mx-auto mb-6 drop-shadow-2xl" />
-        <h2 className="text-4xl sm:text-5xl md:text-7xl font-black leading-tight mb-4">
+        <h2 className="text-4xl sm:text-5xl md:text-6xl font-black leading-tight mb-4">
           Stop paying for<br/>apps you don't use.
         </h2>
         <p className="text-white/60 text-lg mb-10 max-w-md mx-auto leading-relaxed">
