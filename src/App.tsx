@@ -57,7 +57,7 @@ function BalancePanel() {
 // --- Side nav dots ---
 function SideNav({ current, total, onGoTo }: { current: number; total: number; onGoTo: (i: number) => void }) {
   const percentage = (current / (total - 1)) * 100;
-  const labels = ['Home', 'Pain Points', 'How it Works', 'Security', 'Alerts', 'Join Beta'];
+  const labels = ['Home', 'Pain Points', 'How it Works', 'Funding Modes', 'Security', 'Alerts', 'Join Beta'];
   const isVisible = current > 0 && current < total - 1;
 
   return (
@@ -152,9 +152,10 @@ function Slide({
 // --- Main App ---
 export default function App() {
   const [current, setCurrent] = useState(0)
+  const [isAutoPilot, setIsAutoPilot] = useState(true)
 
 
-  const TOTAL = 6
+  const TOTAL = 7
 
   function goTo(i: number) {
     const el = document.getElementById(`slide-${i}`)
@@ -180,24 +181,24 @@ export default function App() {
             Nomba Hackathon 2026
           </div>
 
-          <h1 className="text-4xl sm:text-5xl md:text-[5.5rem] font-black leading-[1.1] md:leading-[1.0] tracking-tight text-[#1E2A2E] mb-6">
-            Never miss a<br/>
-            <span className="underline-gold">payment</span>
-            <br/>again.
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[4.5rem] font-black leading-[1.1] md:leading-[1.05] tracking-tight text-[#1E2A2E] mb-6">
+            Netflix shouldn't have access to your <span className="underline-gold">rent money</span>.
           </h1>
 
           <p className="text-base sm:text-lg text-[#1E2A2E]/60 leading-relaxed max-w-md mb-10">
-            One wallet, one virtual card. Fund SubBee once and we pay
-            your Netflix, Spotify, and every bill — automatically, on time.
+            Stop linking your main bank account to the internet. Fund your SubBee wallet once a month, and we'll pay your subscriptions using a virtual card that can't be overdrawn.
           </p>
 
           <div className="flex gap-4 flex-wrap">
             <a
               href="https://subbee.vercel.app"
-              className="bg-[#183739] text-white px-8 py-3.5 rounded-full font-semibold text-sm hover:bg-[#2E6264] transition-colors flex items-center gap-3"
+              className="bg-white text-[#183739] px-8 py-3.5 rounded-full font-bold text-sm hover:bg-gray-50 transition-colors flex items-center gap-3 shadow-md"
             >
-              <svg viewBox="0 0 512 512" className="w-5 h-5 fill-current">
-                <path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/>
+              <svg viewBox="0 0 512 512" className="w-5 h-5">
+                <path fill="#EA4335" d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1z"/>
+                <path fill="#4285F4" d="M47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0z"/>
+                <path fill="#FBBC04" d="M425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8z"/>
+                <path fill="#34A853" d="M104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/>
               </svg>
               Get The App
             </a>
@@ -227,14 +228,14 @@ export default function App() {
       <div className="max-w-3xl w-full text-center">
         <p className="text-[#E9B84A] text-sm font-bold uppercase tracking-widest mb-6">Sound familiar?</p>
         <h2 className="text-3xl sm:text-5xl md:text-7xl font-black leading-tight mb-8 md:mb-12">
-          Your subscription<br/>failed. <span className="opacity-30">Again.</span>
+          The 3 AM<br/>Subscription <span className="opacity-30">Panic.</span>
         </h2>
 
         <div className="grid md:grid-cols-3 gap-6 text-left relative z-10">
           {[
-            { img: '/assets/bee-confused-right.png', head: 'Surprise charge', body: 'You forgot the free trial ended. You wake up to a debit you weren\'t ready for.' },
-            { img: '/assets/bee-sad.png', head: 'Low balance, failed bill', body: 'You keep your main account low for security. Netflix disagrees.' },
-            { img: '/assets/pain_security_breach.png', head: 'Too many cards out there', body: 'Five streaming sites have your debit card. One breach and it\'s all gone.' },
+            { img: '/assets/bee-confused-right.png', head: 'The Free Trial Trap', body: 'You clicked "start 7-day trial" and forgot. Now you\'re down ₦5,000 for an app you don\'t use.' },
+            { img: '/assets/bee-sad.png', head: 'The Empty Account Bounce', body: 'You keep your debit card balance low so hackers can\'t steal it. Now Spotify keeps failing to charge.' },
+            { img: '/assets/pain_security_breach.png', head: 'The Data Breach', body: 'Three different websites have your debit card number. If one gets hacked, you have to freeze your whole bank account.' },
           ].map(({ img, head, body }) => (
             <div key={head} className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/8 transition-colors flex flex-col justify-between">
               <div>
@@ -255,22 +256,22 @@ export default function App() {
     // 2 — How it works
     <Slide key={2} id="slide-2" onVisible={setCurrent} index={2} className="bg-[#FFFFFC]">
       {/* Honey drip decoration at the transition boundary */}
-      <div className="absolute top-0 left-0 right-0 w-full overflow-hidden pointer-events-none opacity-20">
-        <img src="/assets/honey_drip.png" alt="" className="w-full h-16 object-cover object-top" />
+      <div className="absolute top-0 left-0 right-0 w-full z-20 pointer-events-none opacity-80">
+        <img src="/assets/honey_drip.png" alt="" className="w-full h-16 md:h-24 object-cover object-top" />
       </div>
 
       <div className="max-w-4xl w-full relative z-10">
         <p className="text-[#E9B84A] text-sm font-bold uppercase tracking-widest mb-4 text-center">How it works</p>
         <h2 className="text-3xl sm:text-4xl md:text-6xl font-black text-[#1E2A2E] leading-tight text-center mb-8 md:mb-16">
-          Four steps.<br/>Then you're done.
+          Setup takes 2 minutes.<br/>We do the rest.
         </h2>
 
         <div className="grid md:grid-cols-2 gap-6">
           {[
-            { n: '1', head: 'Deposit once', body: 'Get a dedicated Nomba account number. Transfer your monthly budget — ₦50,000, ₦20,000, whatever fits.' },
-            { n: '2', head: 'Add subscriptions', body: 'Tell us: Netflix, monthly, ₦4,900. DSTV, monthly, ₦13,000. We remember everything.' },
-            { n: '3', head: 'Get your virtual card', body: 'We issue you an isolated Mastercard — never your real card, always kept at ₦0 for safety.' },
-            { n: '4', head: 'We handle the rest', body: 'You\'ll get a Telegram reminder 3 days before any charge. We pay it on time, every time.' },
+            { n: '1', head: 'Send us money', body: 'Wire your monthly subscription budget to your dedicated Nomba account.' },
+            { n: '2', head: 'List your bills', body: 'Tell us you pay Netflix ₦4,900 and DSTV ₦13,000.' },
+            { n: '3', head: 'Take the card', body: 'We hand you a virtual Mastercard that stays empty by default.' },
+            { n: '4', head: 'Approve via Telegram', body: 'We ping you 3 days before a bill. Say yes, and we fund the card for that exact millisecond.' },
           ].map(({ n, head, body }) => (
             <div key={n} className="relative bg-white border border-gray-100 rounded-2xl p-7 shadow-sm overflow-hidden hover:shadow-md transition-shadow">
               <span className="step-num">{n}</span>
@@ -282,17 +283,82 @@ export default function App() {
       </div>
     </Slide>,
 
-    // 3 — Security feature
-    <Slide key={3} id="slide-3" onVisible={setCurrent} index={3} className="bg-[#1E2A2E] text-white">
+    // 3 — Funding Modes
+    <Slide key={3} id="slide-3" onVisible={setCurrent} index={3} className="bg-[#183739] text-white">
+      <div className="max-w-4xl w-full relative z-10 flex flex-col items-center text-center">
+        {/* Floating Bubbles */}
+        <div className="absolute inset-[-100px] pointer-events-none overflow-hidden hidden sm:block opacity-40 blur-[1px]">
+          <img src="/assets/netflix.png" className="absolute top-[10%] left-[10%] w-16 h-16 rounded-full shadow-2xl animate-float delay-1 object-contain" />
+          <img src="/assets/spotify.png" className="absolute top-[30%] left-[85%] w-12 h-12 rounded-full shadow-2xl animate-float delay-2 object-contain" />
+          <img src="/assets/amazon.png" className="absolute bottom-[15%] left-[20%] w-20 h-20 rounded-full shadow-2xl animate-float delay-3 object-contain" />
+          <img src="/assets/openai.png" className="absolute top-[20%] right-[15%] w-16 h-16 rounded-full shadow-2xl animate-float delay-4 object-contain" />
+          <img src="/assets/dstv.png" className="absolute bottom-[25%] right-[20%] w-14 h-14 rounded-full shadow-2xl animate-float object-contain" style={{ animationDelay: '1.2s' }} />
+          <img src="/assets/apple.png" className="absolute bottom-[10%] right-[40%] w-16 h-16 rounded-full shadow-2xl animate-float object-contain" style={{ animationDelay: '0.8s' }} />
+          <img src="/assets/youtube.png" className="absolute top-[5%] right-[40%] w-12 h-12 rounded-full shadow-2xl animate-float object-contain" style={{ animationDelay: '2.5s' }} />
+        </div>
+
+        {/* Toggle Switch */}
+        <div className="relative z-20 bg-[#0E2426] p-1.5 rounded-full flex items-center mb-12 shadow-inner border border-white/5">
+          <button
+            onClick={() => setIsAutoPilot(false)}
+            className={`relative px-6 py-3 rounded-full text-sm font-bold transition-all duration-300 ${
+              !isAutoPilot ? 'text-[#1E2A2E] shadow-md' : 'text-white/50 hover:text-white/80'
+            }`}
+          >
+            {!isAutoPilot && <div className="absolute inset-0 bg-white rounded-full z-0 transition-all duration-300"></div>}
+            <span className="relative z-10">Manual Control</span>
+          </button>
+          
+          <button
+            onClick={() => setIsAutoPilot(true)}
+            className={`relative px-6 py-3 rounded-full text-sm font-bold transition-all duration-300 ${
+              isAutoPilot ? 'text-[#1E2A2E] shadow-md shadow-[#E9B84A]/20' : 'text-white/50 hover:text-white/80'
+            }`}
+          >
+            {isAutoPilot && <div className="absolute inset-0 bg-[#E9B84A] rounded-full z-0 transition-all duration-300"></div>}
+            <span className="relative z-10">✨ Auto-Pilot</span>
+          </button>
+        </div>
+
+        {/* Dynamic Content Block */}
+        <div className="relative z-20 min-h-[220px] transition-opacity duration-300 flex flex-col items-center">
+          {isAutoPilot ? (
+            <div key="auto" className="slide-up">
+              <h2 className="text-3xl sm:text-5xl md:text-6xl font-black leading-tight mb-8">
+                Let SubBee do the<br/>heavy lifting.
+              </h2>
+              <ul className="text-left inline-block space-y-4 text-white/80 text-lg">
+                <li className="flex items-center gap-3"><span className="text-[#E9B84A] text-xl">💰</span> Drop a lump sum into your wallet once.</li>
+                <li className="flex items-center gap-3"><span className="text-[#E9B84A] text-xl">🔍</span> We automatically detect your subscriptions.</li>
+                <li className="flex items-center gap-3"><span className="text-[#E9B84A] text-xl">⚡</span> We pay them exactly when they're due.</li>
+              </ul>
+            </div>
+          ) : (
+            <div key="manual" className="slide-up">
+              <h2 className="text-3xl sm:text-5xl md:text-6xl font-black leading-tight mb-8">
+                Absolute precision.<br/>You call the shots.
+              </h2>
+              <ul className="text-left inline-block space-y-4 text-white/80 text-lg">
+                <li className="flex items-center gap-3"><span className="text-white text-xl">🎯</span> Fund specific bills only.</li>
+                <li className="flex items-center gap-3"><span className="text-white text-xl">🛑</span> Never get charged for a service you forgot.</li>
+                <li className="flex items-center gap-3"><span className="text-white text-xl">📅</span> You tell us exactly what to pay and when.</li>
+              </ul>
+            </div>
+          )}
+        </div>
+      </div>
+    </Slide>,
+
+    // 4 — Security feature
+    <Slide key={4} id="slide-4" onVisible={setCurrent} index={4} className="bg-[#1E2A2E] text-white">
       <div className="max-w-5xl w-full grid md:grid-cols-2 gap-16 items-center">
         <div>
           <p className="text-[#E9B84A] text-sm font-bold uppercase tracking-widest mb-6">Security</p>
           <h2 className="text-3xl sm:text-5xl md:text-6xl font-black leading-tight mb-6">
-            Your card stays<br/>at <span className="text-[#E9B84A] text-tabular">₦ 0.00</span>.
+            Hackers can't<br/>steal <span className="text-[#E9B84A] text-tabular">₦ 0.00</span>.
           </h2>
           <p className="text-white/60 text-lg leading-relaxed max-w-sm mb-8">
-            We move the exact amount to your card only milliseconds before
-            a charge is processed. Between charges, there's nothing to steal.
+            We keep your virtual card empty. We only move cash to it milliseconds before a verified charge hits. If a scammer gets your card details, they get a piece of plastic with zero purchasing power.
           </p>
           <div className="inline-flex items-center gap-2 bg-[#E9B84A]/10 text-[#E9B84A] px-4 py-2 rounded-full text-sm font-semibold">
             <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -313,8 +379,8 @@ export default function App() {
       </div>
     </Slide>,
 
-    // 4 — Telegram alerts
-    <Slide key={4} id="slide-4" onVisible={setCurrent} index={4} className="bg-[#FFFFFC]">
+    // 5 — Telegram alerts
+    <Slide key={5} id="slide-5" onVisible={setCurrent} index={5} className="bg-[#FFFFFC]">
       <div className="max-w-5xl w-full grid md:grid-cols-2 gap-16 items-center">
         {/* Telegram mock with Postman Bee */}
         <div className="order-2 md:order-1 flex justify-center relative">
@@ -355,20 +421,18 @@ export default function App() {
         <div className="order-1 md:order-2">
           <p className="text-[#E9B84A] text-sm font-bold uppercase tracking-widest mb-6">Alerts</p>
           <h2 className="text-3xl sm:text-5xl md:text-6xl font-black text-[#1E2A2E] leading-tight mb-6">
-            3-day heads up.<br/>Every time.
+            We interrogate<br/>every charge.
           </h2>
           <p className="text-[#1E2A2E]/60 text-lg leading-relaxed max-w-sm mb-6">
-            SubBee messages you on Telegram (or WhatsApp) before every
-            charge. Pay early, skip a month, or pause — right from the chat.
-            No app switch needed.
+            We don't just pay bills blindly. 3 days before Netflix charges you, SubBee sends you a Telegram message. Want to skip this month? Tap "Skip" in the chat. The charge bounces, and you keep your cash.
           </p>
           <img src="/assets/bee-waiting.png" alt="" className="h-20 opacity-80" />
         </div>
       </div>
     </Slide>,
 
-    // 5 — CTA
-    <Slide key={5} id="slide-5" onVisible={setCurrent} index={5} className="bg-[#183739] text-white">
+    // 6 — CTA
+    <Slide key={6} id="slide-6" onVisible={setCurrent} index={6} className="bg-[#183739] text-white">
       {/* Bottom meadow */}
       <div className="absolute inset-0 w-full h-full opacity-20 pointer-events-none">
         <img src="/assets/meadow.png" alt="" className="w-full h-full object-cover object-bottom" />
@@ -386,10 +450,13 @@ export default function App() {
         <div className="flex justify-center mt-6">
           <a
             href="https://subbee.vercel.app"
-            className="bg-[#E9B84A] text-[#1E2A2E] px-8 py-3.5 rounded-full font-bold text-sm hover:bg-[#EDC062] transition-colors shadow-lg shadow-[#E9B84A]/30 flex items-center justify-center gap-3 w-fit mx-auto"
+            className="bg-white text-[#183739] px-8 py-3.5 rounded-full font-bold text-sm hover:bg-gray-100 transition-colors shadow-xl flex items-center justify-center gap-3 w-fit mx-auto"
           >
-            <svg viewBox="0 0 512 512" className="w-5 h-5 fill-current">
-              <path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/>
+            <svg viewBox="0 0 512 512" className="w-5 h-5">
+              <path fill="#EA4335" d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1z"/>
+              <path fill="#4285F4" d="M47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0z"/>
+              <path fill="#FBBC04" d="M425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8z"/>
+              <path fill="#34A853" d="M104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/>
             </svg>
             Get The App
           </a>
@@ -408,28 +475,31 @@ export default function App() {
           <div className="flex items-center gap-2">
             <img src="/assets/subbee-logo.png" alt="SubBee" className="h-7 animate-pulse" style={{ animationDuration: '3s' }} />
             <span className={`font-black text-lg tracking-tight transition-colors duration-300 ${
-              current % 2 !== 0 ? 'text-white' : 'text-[#183739]'
+              [1, 3, 4, 6].includes(current) ? 'text-white' : 'text-[#183739]'
             }`}>SubBee</span>
           </div>
 
           <div className={`hidden md:flex items-center gap-8 text-sm font-medium transition-colors duration-300 ${
-            current % 2 !== 0 ? 'text-white/60' : 'text-[#1E2A2E]/50'
+            [1, 3, 4, 6].includes(current) ? 'text-white/60' : 'text-[#1E2A2E]/50'
           }`}>
-            <button onClick={() => goTo(2)} className={`transition-colors ${current % 2 !== 0 ? 'hover:text-white' : 'hover:text-[#1E2A2E]'}`}>How it works</button>
-            <button onClick={() => goTo(3)} className={`transition-colors ${current % 2 !== 0 ? 'hover:text-white' : 'hover:text-[#1E2A2E]'}`}>Security</button>
-            <button onClick={() => goTo(4)} className={`transition-colors ${current % 2 !== 0 ? 'hover:text-white' : 'hover:text-[#1E2A2E]'}`}>Alerts</button>
+            <button onClick={() => goTo(2)} className={`transition-colors ${[1, 3, 4, 6].includes(current) ? 'hover:text-white' : 'hover:text-[#1E2A2E]'}`}>How it works</button>
+            <button onClick={() => goTo(4)} className={`transition-colors ${[1, 3, 4, 6].includes(current) ? 'hover:text-white' : 'hover:text-[#1E2A2E]'}`}>Security</button>
+            <button onClick={() => goTo(5)} className={`transition-colors ${[1, 3, 4, 6].includes(current) ? 'hover:text-white' : 'hover:text-[#1E2A2E]'}`}>Alerts</button>
           </div>
 
           <a
             href="https://subbee.vercel.app"
-            className={`px-5 py-2 rounded-full font-semibold text-sm transition-all duration-300 flex items-center gap-2 ${
-              current % 2 !== 0 
-                ? 'bg-white text-[#183739] hover:bg-[#E9B84A] hover:text-white' 
-                : 'bg-[#E9B84A] text-[#1E2A2E] hover:bg-[#EDC062]'
+            className={`px-5 py-2 rounded-full font-bold text-sm transition-all duration-300 flex items-center gap-2 ${
+              [1, 3, 4, 6].includes(current) 
+                ? 'bg-white text-[#183739] hover:bg-gray-100' 
+                : 'bg-white text-[#183739] hover:bg-gray-100 shadow-sm border border-gray-200'
             }`}
           >
-            <svg viewBox="0 0 512 512" className="w-4 h-4 fill-current">
-              <path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/>
+            <svg viewBox="0 0 512 512" className="w-4 h-4">
+              <path fill="#EA4335" d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1z"/>
+              <path fill="#4285F4" d="M47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0z"/>
+              <path fill="#FBBC04" d="M425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8z"/>
+              <path fill="#34A853" d="M104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/>
             </svg>
             Get The App
           </a>
