@@ -295,7 +295,7 @@ export default function App() {
       id="slide-0"
       onVisible={setCurrent}
       index={0}
-      className="bg-[#FFFFFC]"
+      className="bg-[#FFFFFC] no-honeycomb"
     >
       {/* big blurred gold orb */}
       <div className="absolute top-[-200px] right-[-200px] w-[600px] h-[600px] rounded-full bg-[#E9B84A] opacity-10 blur-[120px] pointer-events-none" />
@@ -440,7 +440,7 @@ export default function App() {
       id="slide-2"
       onVisible={setCurrent}
       index={2}
-      className="bg-[#FFFFFC]"
+      className="bg-[#FFFFFC] honeycomb-bg"
     >
       {/* Honey drip decoration at the transition boundary */}
       {/*<div className="absolute -top-32 left-0 right-0 w-full z-10 pointer-events-none opacity-5">
@@ -567,7 +567,7 @@ export default function App() {
     >
       <div className="max-w-4xl w-full relative z-10 flex flex-col items-center text-center">
         {/* Floating Bubbles — 17 total, spread wide */}
-        <div className="absolute inset-[-30px] sm:inset-[-100px] pointer-events-none overflow-hidden opacity-25 sm:opacity-40 blur-[1px]">
+        <div className="absolute inset-[-30px] sm:inset-[-100px] pointer-events-none overflow-hidden opacity-10 blur-[2px] sm:opacity-40 sm:blur-[1px]">
           {/* Original 7 */}
           <img
             src="/assets/netflix.png"
@@ -777,13 +777,13 @@ export default function App() {
           style={{ animationDelay: "2.1s" }}
         />
         <span
-          className="absolute top-[36%] left-[33%] bg-[#E9B84A]/15 text-[#E9B84A] text-[10px] sm:text-[11px] px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full font-semibold shadow-lg animate-float whitespace-nowrap"
+          className="absolute top-[8%] left-[13%] bg-[#E9B84A]/15 text-[#E9B84A] text-[10px] sm:text-[11px] px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full font-semibold shadow-lg animate-float whitespace-nowrap"
           style={{ animationDelay: "0.9s" }}
         >
           Landlord Rent
         </span>
         <span
-          className="absolute bottom-[30%] left-[22%] bg-[#E9B84A]/15 text-[#E9B84A] text-[10px] sm:text-[11px] px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full font-semibold shadow-lg animate-float whitespace-nowrap"
+          className="absolute bottom-[9%] left-[15%] bg-[#E9B84A]/15 text-[#E9B84A] text-[10px] sm:text-[11px] px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full font-semibold shadow-lg animate-float whitespace-nowrap"
           style={{ animationDelay: "1.8s" }}
         >
           Generator Fuel
@@ -888,7 +888,7 @@ export default function App() {
       id="slide-6"
       onVisible={setCurrent}
       index={6}
-      className="bg-[#FFFFFC]"
+      className="bg-[#FFFFFC] honeycomb-bg"
     >
       <div className="max-w-5xl w-full grid md:grid-cols-2 gap-8 lg:gap-16 items-center">
         {/* Telegram mock with Postman Bee */}
@@ -972,7 +972,7 @@ export default function App() {
       id="slide-7"
       onVisible={setCurrent}
       index={7}
-      className="bg-[#183739] honeycomb-bg text-white"
+      className="bg-[#183739] honeycomb-bg no-honeycomb text-white"
     >
       {/* Bottom meadow */}
       <div className="absolute inset-0 w-full h-full opacity-20 pointer-events-none">
