@@ -777,7 +777,7 @@ export default function App() {
           style={{ animationDelay: "2.1s" }}
         />
         <span
-          className="absolute top-[8%] left-[13%] bg-[#E9B84A]/15 text-[#E9B84A] text-[10px] sm:text-[11px] px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full font-semibold shadow-lg animate-float whitespace-nowrap"
+          className="absolute top-[16%] left-[10%] bg-[#E9B84A]/15 text-[#E9B84A] text-[10px] sm:text-[11px] px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full font-semibold shadow-lg animate-float whitespace-nowrap"
           style={{ animationDelay: "0.9s" }}
         >
           Landlord Rent
