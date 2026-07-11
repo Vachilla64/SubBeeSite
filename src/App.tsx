@@ -1,10 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import "./index.css";
 
-// --- Config Toggles ---
-const SHOW_BEE_PATH = false; // Set to true to render the bee trail path
-
-// --- Tiny helpers ---
+const SHOW_BEE_PATH = false;
 
 function BeeCard() {
   return (
@@ -73,6 +70,92 @@ function BalancePanel() {
   );
 }
 
+function GlobeHorizon() {
+  const pins = [
+    { left: "35%", top: "19%", color: "#E9B84A", delay: "0s" },
+    { left: "64%", top: "25%", color: "#FFFFFF", delay: "0.6s" },
+  ];
+
+  return (
+    <div className="absolute left-1/2 -translate-x-1/2 bottom-[-620px] sm:bottom-[-760px] md:bottom-[-860px] w-[820px] h-[820px] sm:w-[1050px] sm:h-[1050px] md:w-[1250px] md:h-[1250px] pointer-events-none z-0">
+      <svg
+        viewBox="0 0 200 200"
+        className="absolute inset-0 w-full h-full overflow-visible"
+      >
+        <defs>
+          <radialGradient id="globeFill" cx="50%" cy="30%" r="75%">
+            <stop offset="0%" stopColor="#2E6264" />
+            <stop offset="55%" stopColor="#183739" />
+            <stop offset="100%" stopColor="#0E2426" />
+          </radialGradient>
+        </defs>
+        <circle
+          cx="100"
+          cy="100"
+          r="98"
+          fill="url(#globeFill)"
+          stroke="#E9B84A"
+          strokeOpacity="0.3"
+          strokeWidth="0.5"
+        />
+        {[16, 34, 54, 76].map((ry, i) => (
+          <ellipse
+            key={`lat-${i}`}
+            cx="100"
+            cy="100"
+            rx="98"
+            ry={ry}
+            fill="none"
+            stroke="#E9B84A"
+            strokeOpacity="0.12"
+            strokeWidth="0.4"
+          />
+        ))}
+        {[0, 35, 70, -35, -70].map((rot, i) => (
+          <ellipse
+            key={`lon-${i}`}
+            cx="100"
+            cy="100"
+            rx="34"
+            ry="98"
+            fill="none"
+            stroke="#E9B84A"
+            strokeOpacity="0.1"
+            strokeWidth="0.4"
+            transform={`rotate(${rot} 100 100)`}
+          />
+        ))}
+        {/* flight arc: local pin to international pin */}
+        <path
+          d="M 70,40 Q 100,8 130,46"
+          fill="none"
+          stroke="#E9B84A"
+          strokeWidth="0.9"
+          strokeDasharray="2.5 3"
+          strokeLinecap="round"
+          className="opacity-80"
+        />
+      </svg>
+      {pins.map((p, i) => (
+        <span
+          key={i}
+          className="absolute flex h-3 w-3 -translate-x-1/2 -translate-y-1/2"
+          style={{ left: p.left, top: p.top }}
+        >
+          <span
+            className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-60"
+            style={{ backgroundColor: p.color, animationDelay: p.delay }}
+          />
+          <span
+            className="relative inline-flex rounded-full h-3 w-3 shadow-[0_0_8px_rgba(233,184,74,0.8)]"
+            style={{ backgroundColor: p.color }}
+          />
+        </span>
+      ))}
+    </div>
+  );
+}
+
 // --- Side nav dots ---
 function SideNav({
   current,
@@ -89,6 +172,7 @@ function SideNav({
     "Pain Points",
     "How it Works",
     "Funding Modes",
+    "Anywhere",
     "Security",
     "Alerts",
     "Join Beta",
@@ -197,7 +281,7 @@ export default function App() {
   const [current, setCurrent] = useState(0);
   const [isAutoPilot, setIsAutoPilot] = useState(true);
 
-  const TOTAL = 7;
+  const TOTAL = 8;
 
   function goTo(i: number) {
     const el = document.getElementById(`slide-${i}`);
@@ -296,39 +380,42 @@ export default function App() {
       id="slide-1"
       onVisible={setCurrent}
       index={1}
-      className="bg-[#183739] text-white"
+      className="bg-[#183739] honeycomb-bg text-white"
     >
-      <div className="max-w-3xl w-full text-center">
+      <div className="max-w-4xl w-full text-center">
         <p className="text-[#E9B84A] text-sm font-bold uppercase tracking-widest mb-6">
-          `
+          The problem
         </p>
-        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black leading-tight mb-8 md:mb-10">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black leading-tight mb-10 md:mb-14">
           Does this
           <br />
           sound <span className="opacity-30">familiar?.</span>
         </h2>
 
-        <div className="grid md:grid-cols-3 gap-4 lg:gap-6 text-left relative z-10">
+        <div className="grid md:grid-cols-3 gap-5 lg:gap-6 text-left relative z-10">
           {[
             {
               img: "/assets/bee-confused-left.png",
               head: "I lost ₦5,000 to a free trial I forgot to cancel.",
               body: "You clicked \"start 7-day trial\" and forgot. Now you're down ₦5,000 for an app you don't use.",
+              tilt: "md:rotate-[-2deg] md:-translate-y-3",
             },
             {
               img: "/assets/bee-confused-right.png",
               head: "Spotify cut me off because I kept my balance at zero.",
               body: "You keep your debit card balance low so hackers can't steal it. Now Spotify keeps failing to charge.",
+              tilt: "md:rotate-[1.5deg] md:translate-y-5",
             },
             {
               img: "/assets/bee-confused-left.png",
               head: "I had to freeze my bank account because one site got hacked.",
               body: "Three different websites have your debit card number. If one gets hacked, you have to freeze your whole bank account.",
+              tilt: "md:rotate-[-1.5deg] md:-translate-y-1",
             },
-          ].map(({ img, head, body }) => (
+          ].map(({ img, head, body, tilt }) => (
             <div
               key={head}
-              className="bg-white/5 border border-white/10 rounded-2xl p-5 hover:bg-white/8 transition-colors flex flex-col justify-between"
+              className={`bg-white/5 border border-white/10 rounded-2xl p-5 flex flex-col justify-between transition-all duration-300 ease-out hover:bg-white/8 hover:shadow-xl hover:shadow-black/20 md:hover:-translate-y-1 md:hover:rotate-0 ${tilt}`}
             >
               <div>
                 <div className="h-20 mb-4 flex items-center">
@@ -341,7 +428,9 @@ export default function App() {
           ))}
         </div>
 
-        <p className="mt-8 text-white/40 text-sm">Scroll to see the fix ↓</p>
+        <p className="mt-12 md:mt-16 text-white/40 text-sm">
+          Scroll to see the fix ↓
+        </p>
       </div>
     </Slide>,
 
@@ -354,13 +443,13 @@ export default function App() {
       className="bg-[#FFFFFC]"
     >
       {/* Honey drip decoration at the transition boundary */}
-      <div className="absolute -top-32 left-0 right-0 w-full z-10 pointer-events-none opacity-5">
+      {/*<div className="absolute -top-32 left-0 right-0 w-full z-10 pointer-events-none opacity-5">
         <img
           src="/assets/honey_drip.png"
           alt=""
           className="w-full h-full object-cover object-top"
         />
-      </div>
+      </div>*/}
 
       <div className="max-w-4xl w-full relative z-20">
         <p className="text-[#E9B84A] text-sm font-bold uppercase tracking-widest mb-4 text-center">
@@ -474,31 +563,95 @@ export default function App() {
       id="slide-3"
       onVisible={setCurrent}
       index={3}
-      className="bg-[#183739] text-white"
+      className="bg-[#183739] honeycomb-bg text-white"
     >
       <div className="max-w-4xl w-full relative z-10 flex flex-col items-center text-center">
         {/* Floating Bubbles — 17 total, spread wide */}
-        <div className="absolute inset-[-100px] pointer-events-none overflow-hidden hidden sm:block opacity-40 blur-[1px]">
+        <div className="absolute inset-[-30px] sm:inset-[-100px] pointer-events-none overflow-hidden opacity-25 sm:opacity-40 blur-[1px]">
           {/* Original 7 */}
-          <img src="/assets/netflix.png" className="absolute top-[10%] left-[10%] w-16 h-16 rounded-full shadow-2xl animate-float delay-1 object-contain" />
-          <img src="/assets/spotify.png" className="absolute top-[30%] left-[85%] w-12 h-12 rounded-full shadow-2xl animate-float delay-2 object-contain" />
-          <img src="/assets/amazon.png" className="absolute bottom-[15%] left-[20%] w-20 h-20 rounded-full shadow-2xl animate-float delay-3 object-contain" />
-          <img src="/assets/openai.png" className="absolute top-[20%] right-[15%] w-16 h-16 rounded-full shadow-2xl animate-float delay-4 object-contain" />
-          <img src="/assets/dstv.png" className="absolute bottom-[25%] right-[20%] w-14 h-14 rounded-full shadow-2xl animate-float object-contain" style={{ animationDelay: '1.2s' }} />
-          <img src="/assets/apple.png" className="absolute bottom-[10%] right-[40%] w-16 h-16 rounded-full shadow-2xl animate-float object-contain" style={{ animationDelay: '0.8s' }} />
-          <img src="/assets/youtube.png" className="absolute top-[5%] right-[40%] w-12 h-12 rounded-full shadow-2xl animate-float object-contain" style={{ animationDelay: '2.5s' }} />
+          <img
+            src="/assets/netflix.png"
+            className="absolute top-[10%] left-[10%] w-8 h-8 sm:w-16 sm:h-16 rounded-full shadow-2xl animate-float delay-1 object-contain"
+          />
+          <img
+            src="/assets/spotify.png"
+            className="absolute top-[30%] left-[85%] w-6 h-6 sm:w-12 sm:h-12 rounded-full shadow-2xl animate-float delay-2 object-contain"
+          />
+          <img
+            src="/assets/amazon.png"
+            className="absolute bottom-[15%] left-[20%] w-10 h-10 sm:w-20 sm:h-20 rounded-full shadow-2xl animate-float delay-3 object-contain"
+          />
+          <img
+            src="/assets/openai.png"
+            className="absolute top-[20%] right-[15%] w-8 h-8 sm:w-16 sm:h-16 rounded-full shadow-2xl animate-float delay-4 object-contain"
+          />
+          <img
+            src="/assets/dstv.png"
+            className="absolute bottom-[25%] right-[20%] w-7 h-7 sm:w-14 sm:h-14 rounded-full shadow-2xl animate-float object-contain"
+            style={{ animationDelay: "1.2s" }}
+          />
+          <img
+            src="/assets/apple.png"
+            className="absolute bottom-[10%] right-[40%] w-8 h-8 sm:w-16 sm:h-16 rounded-full shadow-2xl animate-float object-contain"
+            style={{ animationDelay: "0.8s" }}
+          />
+          <img
+            src="/assets/youtube.png"
+            className="absolute top-[5%] right-[40%] w-6 h-6 sm:w-12 sm:h-12 rounded-full shadow-2xl animate-float object-contain"
+            style={{ animationDelay: "2.5s" }}
+          />
           {/* 5 Foreign */}
-          <img src="/assets/hulu.png" className="absolute top-[50%] left-[5%] w-14 h-14 rounded-full shadow-2xl animate-float object-contain" style={{ animationDelay: '1.8s' }} />
-          <img src="/assets/disneyplus.png" className="absolute top-[70%] left-[55%] w-14 h-14 rounded-full shadow-2xl animate-float object-contain" style={{ animationDelay: '3.1s' }} />
-          <img src="/assets/canva.png" className="absolute top-[15%] left-[55%] w-12 h-12 rounded-full shadow-2xl animate-float object-contain" style={{ animationDelay: '0.4s' }} />
-          <img src="/assets/adobe.png" className="absolute bottom-[40%] left-[72%] w-12 h-12 rounded-full shadow-2xl animate-float object-contain" style={{ animationDelay: '2.2s' }} />
-          <img src="/assets/linkedin.png" className="absolute top-[80%] left-[8%] w-12 h-12 rounded-full shadow-2xl animate-float object-contain" style={{ animationDelay: '1.5s' }} />
+          <img
+            src="/assets/hulu.png"
+            className="absolute top-[50%] left-[5%] w-7 h-7 sm:w-14 sm:h-14 rounded-full shadow-2xl animate-float object-contain"
+            style={{ animationDelay: "1.8s" }}
+          />
+          <img
+            src="/assets/disneyplus.png"
+            className="absolute top-[70%] left-[55%] w-7 h-7 sm:w-14 sm:h-14 rounded-full shadow-2xl animate-float object-contain"
+            style={{ animationDelay: "3.1s" }}
+          />
+          <img
+            src="/assets/canva.png"
+            className="absolute top-[15%] left-[55%] w-6 h-6 sm:w-12 sm:h-12 rounded-full shadow-2xl animate-float object-contain"
+            style={{ animationDelay: "0.4s" }}
+          />
+          <img
+            src="/assets/adobe.png"
+            className="absolute bottom-[40%] left-[72%] w-6 h-6 sm:w-12 sm:h-12 rounded-full shadow-2xl animate-float object-contain"
+            style={{ animationDelay: "2.2s" }}
+          />
+          <img
+            src="/assets/linkedin.png"
+            className="absolute top-[80%] left-[8%] w-6 h-6 sm:w-12 sm:h-12 rounded-full shadow-2xl animate-float object-contain"
+            style={{ animationDelay: "1.5s" }}
+          />
           {/* 5 Nigerian */}
-          <img src="/assets/showmax.png" className="absolute top-[60%] right-[8%] w-14 h-14 rounded-full shadow-2xl animate-float object-contain" style={{ animationDelay: '3.5s' }} />
-          <img src="/assets/mtn.png" className="absolute top-[40%] left-[35%] w-12 h-12 rounded-full shadow-2xl animate-float object-contain" style={{ animationDelay: '0.9s' }} />
-          <img src="/assets/airtel.png" className="absolute bottom-[5%] right-[55%] w-12 h-12 rounded-full shadow-2xl animate-float object-contain" style={{ animationDelay: '2.8s' }} />
-          <img src="/assets/boomplay.png" className="absolute top-[85%] right-[25%] w-14 h-14 rounded-full shadow-2xl animate-float object-contain" style={{ animationDelay: '1.1s' }} />
-          <img src="/assets/piggyvest.png" className="absolute top-[3%] left-[30%] w-12 h-12 rounded-full shadow-2xl animate-float object-contain" style={{ animationDelay: '4.0s' }} />
+          <img
+            src="/assets/showmax.png"
+            className="absolute top-[60%] right-[8%] w-7 h-7 sm:w-14 sm:h-14 rounded-full shadow-2xl animate-float object-contain"
+            style={{ animationDelay: "3.5s" }}
+          />
+          <img
+            src="/assets/mtn.png"
+            className="absolute top-[40%] left-[35%] w-6 h-6 sm:w-12 sm:h-12 rounded-full shadow-2xl animate-float object-contain"
+            style={{ animationDelay: "0.9s" }}
+          />
+          <img
+            src="/assets/airtel.png"
+            className="absolute bottom-[5%] right-[55%] w-6 h-6 sm:w-12 sm:h-12 rounded-full shadow-2xl animate-float object-contain"
+            style={{ animationDelay: "2.8s" }}
+          />
+          <img
+            src="/assets/boomplay.png"
+            className="absolute top-[85%] right-[25%] w-7 h-7 sm:w-14 sm:h-14 rounded-full shadow-2xl animate-float object-contain"
+            style={{ animationDelay: "1.1s" }}
+          />
+          <img
+            src="/assets/piggyvest.png"
+            className="absolute top-[3%] left-[30%] w-6 h-6 sm:w-12 sm:h-12 rounded-full shadow-2xl animate-float object-contain"
+            style={{ animationDelay: "4.0s" }}
+          />
         </div>
 
         {/* Section headline */}
@@ -593,13 +746,96 @@ export default function App() {
       </div>
     </Slide>,
 
-    // 4 — Security feature
+    // 4 — Anywhere (local + international)
     <Slide
       key={4}
       id="slide-4"
       onVisible={setCurrent}
       index={4}
-      className="bg-[#1E2A2E] text-white"
+      className="bg-[#183739] honeycomb-bg text-white"
+    >
+      <GlobeHorizon />
+
+      {/* soft gold glow along the horizon */}
+      <div className="absolute left-1/2 -translate-x-1/2 bottom-[-40px] w-[500px] h-[160px] bg-[#E9B84A] opacity-10 blur-[100px] rounded-full pointer-events-none z-0" />
+
+      {/* Floating bubbles — local cluster left of center, international cluster right of center */}
+      <div className="absolute inset-[-30px] sm:inset-[-50px] pointer-events-none overflow-hidden z-0">
+        <img
+          src="/assets/dstv.png"
+          className="absolute top-[16%] left-[24%] w-7 h-7 sm:w-14 sm:h-14 rounded-full shadow-2xl animate-float object-contain"
+          style={{ animationDelay: "0.3s" }}
+        />
+        <img
+          src="/assets/mtn.png"
+          className="absolute top-[58%] left-[19%] w-6 h-6 sm:w-12 sm:h-12 rounded-full shadow-2xl animate-float object-contain"
+          style={{ animationDelay: "1.4s" }}
+        />
+        <img
+          src="/assets/airtel.png"
+          className="absolute bottom-[20%] left-[27%] w-6 h-6 sm:w-12 sm:h-12 rounded-full shadow-2xl animate-float object-contain"
+          style={{ animationDelay: "2.1s" }}
+        />
+        <span
+          className="absolute top-[36%] left-[33%] bg-[#E9B84A]/15 text-[#E9B84A] text-[10px] sm:text-[11px] px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full font-semibold shadow-lg animate-float whitespace-nowrap"
+          style={{ animationDelay: "0.9s" }}
+        >
+          Landlord Rent
+        </span>
+        <span
+          className="absolute bottom-[30%] left-[22%] bg-[#E9B84A]/15 text-[#E9B84A] text-[10px] sm:text-[11px] px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full font-semibold shadow-lg animate-float whitespace-nowrap"
+          style={{ animationDelay: "1.8s" }}
+        >
+          Generator Fuel
+        </span>
+
+        <img
+          src="/assets/netflix.png"
+          className="absolute top-[16%] right-[24%] w-7 h-7 sm:w-14 sm:h-14 rounded-full shadow-2xl animate-float object-contain"
+          style={{ animationDelay: "0.6s" }}
+        />
+        <img
+          src="/assets/openai.png"
+          className="absolute top-[54%] right-[19%] w-6 h-6 sm:w-12 sm:h-12 rounded-full shadow-2xl animate-float object-contain"
+          style={{ animationDelay: "1.7s" }}
+        />
+        <img
+          src="/assets/spotify.png"
+          className="absolute bottom-[21%] right-[27%] w-6 h-6 sm:w-12 sm:h-12 rounded-full shadow-2xl animate-float object-contain"
+          style={{ animationDelay: "2.4s" }}
+        />
+      </div>
+
+      <div className="max-w-3xl w-full text-center relative z-10">
+        <p className="text-[#E9B84A] text-sm font-bold uppercase tracking-widest mb-4">
+          Anywhere
+        </p>
+        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black leading-tight mb-4">
+          One card.
+          <br />
+          Every corner of the world.
+        </h2>
+        <p className="text-white/60 text-base sm:text-lg leading-relaxed max-w-xl mx-auto mb-6">
+          Add a custom subscription for anything, from your landlord, your gym
+          down the street, to Netflix, Spotify, or any international bill, all
+          on the same dedicated subscription account!
+        </p>
+
+        <div className="flex justify-center">
+          <div className="scale-75 sm:scale-90">
+            <BeeCard />
+          </div>
+        </div>
+      </div>
+    </Slide>,
+
+    // 5 — Security feature
+    <Slide
+      key={5}
+      id="slide-5"
+      onVisible={setCurrent}
+      index={5}
+      className="bg-[#1E2A2E] honeycomb-bg text-white"
     >
       <div className="max-w-5xl w-full grid md:grid-cols-2 gap-8 lg:gap-16 items-center">
         <div>
@@ -646,12 +882,12 @@ export default function App() {
       </div>
     </Slide>,
 
-    // 5 — Telegram alerts
+    // 6 — Telegram alerts
     <Slide
-      key={5}
-      id="slide-5"
+      key={6}
+      id="slide-6"
       onVisible={setCurrent}
-      index={5}
+      index={6}
       className="bg-[#FFFFFC]"
     >
       <div className="max-w-5xl w-full grid md:grid-cols-2 gap-8 lg:gap-16 items-center">
@@ -670,10 +906,11 @@ export default function App() {
             <div className="flex items-center gap-3 border-b border-white/10 pb-3 mb-4">
               <div className="flex items-center gap-1">
                 <div className="w-8 h-8 rounded-full bg-[#2ca5e0] flex items-center justify-center">
-                  <img src="/assets/subbee-logo.png" alt="" className="w-5 h-5 object-contain" />
-                </div>
-                <div className="w-6 h-6 rounded-full overflow-hidden border border-white/10">
-                  <img src="/assets/whatsapp.png" alt="WhatsApp" className="w-full h-full object-cover" />
+                  <img
+                    src="/assets/subbee-logo.png"
+                    alt=""
+                    className="w-5 h-5 object-contain"
+                  />
                 </div>
               </div>
               <div>
@@ -719,20 +956,23 @@ export default function App() {
           </h2>
           <p className="text-[#1E2A2E]/60 text-lg leading-relaxed max-w-sm mb-6">
             We don't just pay bills blindly. 3 days before Netflix charges you,
-            SubBee sends you a message on <strong className="text-[#1E2A2E]/80">Telegram</strong> or <strong className="text-[#1E2A2E]/80">WhatsApp</strong>. Want to skip this month? Tap
-            "Skip" in the chat. The charge bounces, and you keep your cash.
+            SubBee sends you a message on{" "}
+            <strong className="text-[#1E2A2E]/80">Telegram</strong> or{" "}
+            <strong className="text-[#1E2A2E]/80">WhatsApp</strong>. Want to
+            skip this month? Tap "Skip" in the chat. The charge bounces, and you
+            keep your cash.
           </p>
         </div>
       </div>
     </Slide>,
 
-    // 6 — CTA
+    // 7 — CTA
     <Slide
-      key={6}
-      id="slide-6"
+      key={7}
+      id="slide-7"
       onVisible={setCurrent}
-      index={6}
-      className="bg-[#183739] text-white"
+      index={7}
+      className="bg-[#183739] honeycomb-bg text-white"
     >
       {/* Bottom meadow */}
       <div className="absolute inset-0 w-full h-full opacity-20 pointer-events-none">
@@ -755,8 +995,8 @@ export default function App() {
           apps you don't use.
         </h2>
         <p className="text-white/60 text-base md:text-lg mb-8 max-w-md mx-auto leading-relaxed">
-          Get your SubBee wallet in 120 seconds. It's completely free to fund,
-          free to hold, and free to use.
+          Get your SubBee wallet in 3 minutes. It's completely free to fund,
+          free to hold, and free-ish to use ;).
         </p>
 
         <div className="flex justify-center mt-6">
@@ -807,7 +1047,9 @@ export default function App() {
             />
             <span
               className={`font-black text-lg tracking-tight transition-colors duration-300 ${
-                [1, 3, 4, 6].includes(current) ? "text-white" : "text-[#183739]"
+                [1, 3, 4, 5, 7].includes(current)
+                  ? "text-white"
+                  : "text-[#183739]"
               }`}
             >
               SubBee
@@ -816,7 +1058,7 @@ export default function App() {
 
           <div
             className={`hidden md:flex items-center gap-8 text-sm font-medium transition-colors duration-300 ${
-              [0, 6].includes(current)
+              [0, 7].includes(current)
                 ? "text-white/60"
                 : // : "text-[#1E2A2E]/50"
                   "text-transparent"
@@ -824,19 +1066,19 @@ export default function App() {
           >
             <button
               onClick={() => goTo(2)}
-              className={`transition-colors ${[1, 3, 4, 6].includes(current) ? "hover:text-white" : "hover:text-[#1E2A2E]"}`}
+              className={`transition-colors ${[1, 3, 4, 5, 7].includes(current) ? "hover:text-white" : "hover:text-[#1E2A2E]"}`}
             >
               How it works
             </button>
             <button
-              onClick={() => goTo(4)}
-              className={`transition-colors ${[1, 3, 4, 6].includes(current) ? "hover:text-white" : "hover:text-[#1E2A2E]"}`}
+              onClick={() => goTo(5)}
+              className={`transition-colors ${[1, 3, 4, 5, 7].includes(current) ? "hover:text-white" : "hover:text-[#1E2A2E]"}`}
             >
               Security
             </button>
             <button
-              onClick={() => goTo(5)}
-              className={`transition-colors ${[1, 3, 4, 6].includes(current) ? "hover:text-white" : "hover:text-[#1E2A2E]"}`}
+              onClick={() => goTo(6)}
+              className={`transition-colors ${[1, 3, 4, 5, 7].includes(current) ? "hover:text-white" : "hover:text-[#1E2A2E]"}`}
             >
               Alerts
             </button>
@@ -845,7 +1087,7 @@ export default function App() {
           <a
             href="https://subbee.vercel.app"
             className={`px-5 py-2 rounded-full font-bold text-sm transition-all duration-300 flex items-center gap-2 ${
-              [1, 3, 4, 6].includes(current)
+              [1, 3, 4, 5, 7].includes(current)
                 ? "bg-white text-[#183739] hover:bg-gray-100"
                 : "bg-white text-[#183739] hover:bg-gray-100 shadow-sm border border-gray-200"
             }`}
